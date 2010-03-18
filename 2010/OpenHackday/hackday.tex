@@ -1,0 +1,432 @@
+% Thinking in Documents
+% (c) Copyleft 2010. 
+% Cesar Rodas 
+%
+% Based on http://www.cs.berkeley.edu/~mdw/proj/texslides for details.
+
+\documentclass[20pt,landscape]{foils}
+\usepackage{eso-pic}
+\usepackage{mdwslides}
+
+\usepackage[english]{babel}
+\hypersetup{
+  pdfmenubar=false,
+  pdftoolbar=false,
+  colorlinks=true,
+  urlcolor=mygreen,
+  pdfpagemode={None},
+  pdftitle={MongoDB Advanced Topics},
+  pdfauthor={Cesar D. Rodas},
+  pdfsubject={},
+  pdfkeywords={PHP, MongoDB}
+}
+
+\usepackage{hyperref}
+\usepackage{pause}
+\usepackage{graphicx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fondo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{bg2}{rgb}{1,1,1}
+\definecolor{bg2}{rgb}{1, 0.99, 0.99}
+\definecolor{bg1}{rgb}{0.99, 0.99, 0.5}
+\definecolor{mygreen}{rgb}{0,0.4,0}
+\vpagecolor[bg1]{bg2}
+\bgadd{
+    \hspace{22cm}{
+        \vspace{5cm}{
+            \includegraphics[width=5cm]{logo.png}
+        }
+    }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set headers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\MyLogo{\color{mdwblue}\href{http://twitter.com/crodas}{@crodas} - \href{http://crodas.org}{http://crodas.org/} - \LaTeX}
+\rightfooter{\quad\textsf{\thepage}}
+
+\begin{document}
+\rm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presentacion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\LogoOff
+
+\vskip 3in
+\begin{center}
+{\color{mdwblue}\huge\trebucbd  MongoDB Advanced Topics}
+
+\vskip 5ex
+César D. Rodas\\
+{\small\trebucit \href{mailto:crodas@php.net}{crodas@php.net}}\\
+{\mdwsmall\tt \href{http://crodas.org/}{http://crodas.org/}}\\
+    \vskip 5ex
+
+    \includegraphics[width=5cm]{uarss_logo.png}
+
+\vskip 1ex
+Yahoo! Open Hack Day 2010\\
+    Sâo Paulo, Brasil\\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Who am I?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Who is this fellow?}
+\LogoOn
+
+\begin{list1}
+    \item Paraguayan
+    \item Zealot of
+    \begin{list2}
+        \item Open Source
+        \item PHP
+        \item MongoDB
+    \end{list2}
+    \item PECL Developer
+    \item \href{http://www.cesarodas.com/}{... and few other things}
+
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thanks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{I'd like to thanks to...}
+
+\vskip 1.5in
+\begin{list1}
+    \item 10gen
+    \vskip 0.5in
+    \item Yahoo!
+    \vskip 0.5in
+    \item My Brazilian friends
+\end{list1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Agenda
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Agenda}
+
+\begin{list1}
+    \item Introduction to MongoDB
+    \item MongoDB Queries
+    \item Real life example:
+        \begin{list2}
+            \item Designing data model for a Wordpress.com like site
+            \item Optimize our data model to run in sharded environment
+        \end{list2}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MongoDB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB}
+
+\begin{list1}
+    \item <EN>Mongo</EN> != <PT>Mongo</PT>
+    \item Document oriented database
+    \item Fast, Scalable, Easy to use
+    \item Support Indexes 
+    \begin{list2}
+        \item Simple
+        \item Compound 
+        \item Geo spatial
+    \end{list2}
+    \item Support sharding
+    \item PECL client 
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Documents?}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd It's just an Array()}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd In fact everything is an Array() in MongoDB}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd \href{http://bit.ly/mongodb-php}{http://bit.ly/mongodb-php}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd The fun part}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Operations}
+
+\begin{list1}
+    \item Select
+    \begin{list2}
+        \item \$gt, \$lt, \$gte, \$lte, \$eq, \$neq: >, <, >=, <=, ==, !=
+        \item \$in, \$nin
+        \item \$size, \$exists
+        \item \$where: Any javascript expression
+        \item group()
+        \item limit()
+        \item skip()
+    \end{list2}
+    \item Update
+    \begin{list2}
+        \item \$set
+        \item \$unset
+        \item \$push
+        \item \$pull
+        \item \$inc
+    \end{list2}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd pecl install mongo}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Connection}
+
+\vskip 0.5in
+\input{source/connection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd FROM SQL to MongoDB}\\
+
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Count}
+
+\vskip 0.5in
+\input{source/count}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Queries}
+
+\input{source/queries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Pagination}
+
+\vskip -0.1in
+\input{source/pagination}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Designing data structure}\\
+{\color{mdwblue}\trebucbd Simple multi-blog system}\\
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Collections}
+
+\begin{list1}
+    \item Blog
+    \item Post
+    \item User
+    \item Comment
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Blog document}
+
+\vskip -0.1in
+\input{source/document_blog}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Post document}
+
+\vskip -0.1in
+\input{source/document_post}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Missing docs.}
+
+\vskip -0.1in
+\input{source/document_user_comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{About indexes}
+
+\vskip -0.1in
+\input{source/document_indexes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd That's it.}
+\end{center}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Hum...}
+\end{center}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Until now, nothing new}
+\end{center}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Let's shard it!}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Strategy}
+
+\begin{list1}
+    \item Shard Blog collection
+    \item Shard User collection
+    \item Other collections are isolated
+    \begin{list2}
+        \item Create namespaces for post and comments (foo.post, foo.comments)
+        \item Modify Blog collection, add info about "namespace" (and DB).
+    \end{list2}
+    \item MongoDB will distribute our DB and namespaces
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Configuring the sharding}
+
+\vskip -0.1in
+\input{source/document_shard_config}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{New blog document}
+
+\vskip -0.1in
+\input{source/document_shard_blog}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Then select the DB and namespace to use "post" and "comments"}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Questions?}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Thank you hackers!}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd \href{http://twitter.com/crodas}{@crodas}}\\
+\vskip 1in
+{\color{mdwblue}\Huge\trebucbd \href{http://crodas.org/}{crodas.org}}
+
+\end{center}
+
+\end{document}
