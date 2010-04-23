@@ -1,0 +1,636 @@
+% Thinking in Documents
+% (c) Copyleft 2010. 
+% Cesar Rodas 
+%
+% Based on http://www.cs.berkeley.edu/~mdw/proj/texslides for details.
+
+\documentclass[20pt,landscape]{foils}
+\usepackage{eso-pic}
+\usepackage{mdwslides}
+
+\usepackage[english]{babel}
+
+\hypersetup{
+  pdfmenubar=false,
+  pdftoolbar=false,
+  colorlinks=true,
+  urlcolor=mygreen,
+  pdfpagemode={None},
+  pdftitle={Introducción al mundo NoSQL},
+  pdfauthor={Cesar D. Rodas},
+  pdfsubject={},
+  pdfkeywords={PHP, MongoDB}
+}
+
+\usepackage{hyperref}
+\usepackage{pause}
+\usepackage{graphicx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fondo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{bg2}{rgb}{1,1,1}
+\definecolor{bg2}{rgb}{1, 0.99, 0.99}
+\definecolor{bg1}{rgb}{0.99, 0.99, 0.5}
+\definecolor{mygreen}{rgb}{0,0.4,0}
+\vpagecolor[bg1]{bg2}
+\bgadd{
+    \hspace{22cm}{
+        \vspace{5cm}{
+        }
+    }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set headers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\MyLogo{\color{mdwblue}\href{http://twitter.com/crodas}{@crodas} - \href{http://crodas.org}{http://crodas.org/} - \LaTeX}
+\rightfooter{\quad\textsf{\thepage}}
+
+\begin{document}
+\rm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presentacion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\LogoOff
+
+\vskip 3in
+\begin{center}
+{\color{mdwblue}\huge\trebucbd  Introducción al mundo NoSQL}
+
+\vskip 5ex
+César D. Rodas\\
+{\small\trebucit \href{mailto:crodas@php.net}{crodas@php.net}}\\
+{\mdwsmall\tt \href{http://crodas.org/}{http://crodas.org/}}\\
+    \vskip 5ex
+
+    \includegraphics[width=5cm]{uarss_logo.png}
+
+\vskip 1ex
+Free Software Asunción\\
+    Asunción, Paraguay\\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Who am I?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{acerca de ...}
+\LogoOn
+
+\vskip 1in
+\begin{list1}
+    \item Desarrollador
+    \item Estudiante
+    \item Zelote de
+    \begin{list2}
+        \item Open Source
+        \item PHP
+        \item MongoDB
+    \end{list2}
+    \item PECL Developer
+    \item \href{http://www.cesarodas.com/}{... y algunas cosas mas}
+
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Agenda
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Agenda}
+
+\vskip 1in
+\begin{list1}
+    \item NoSQL
+    \item Redis
+    \item CouchDB
+    \item MongoDB
+
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{NoSQL, \textquestiondown Qué es?}
+
+\vskip 2in
+\begin{center}
+{\color{mdwblue}\large\trebucbd NoSQL es un término usado en informática para agrupar una serie de almacenes de datos no relacionales que no proporcionan garantías ACID. Normalmente no tienen esquemas fijos de tablas ni sentencias \textquotedblleft join\textquotedblright.}
+\end{center}
+\begin{flushright}
+{\tt Wikipedia}
+\end{flushright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{NoSQL, \textquestiondown Qué es?}
+
+\vskip 1in
+\begin{list1}
+    \item Como término nació a principios del 2009
+    \item Como concepto, es algo viejo
+    \item Conjunto de bases de datos que:
+        \begin{list2}
+            \item No provee SQL
+            \item Los datos no tienen relación
+            \item Generalmente escalan de horizontalmente
+        \end{list2}
+\end{list1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{NoSQL, \textquestiondown Qué es?}
+
+\vskip 1in
+\begin{list1}
+    \item Como término nació a principios del 2009
+    \item Como concepto, es algo viejo
+    \item Conjunto de bases de datos que:
+        \begin{list2}
+            \item No provee SQL
+            \item Los datos no tienen relación
+            \item Generalmente escalan de horizontalmente
+        \end{list2}
+\end{list1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{\textquotedblleft Problemas\textquotedblright de las bases de datos relacionales}
+
+\vskip 1in
+\begin{list1}
+    \item SQL
+    \begin{list2}
+        \item Lenguaje interpretado
+        \item Mucha funcionalidad
+    \end{list2}
+    \item ACID ofrece demasiado
+    \item La manera más fácil de escalar es verticalmente
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{\textquotedblleft CAP\textquotedblright y \textquotedblleft BASE\textquotedblright}
+
+\vskip 1in
+\begin{list1}
+    \item Teorema de CAP, puedes tener dos cosas:
+    \begin{list2}
+        \item Consistency
+        \item Availability
+        \item Partition tolerance
+    \end{list2}
+    \item BASE, el reemplazo de ACID
+    \begin{list2}
+        \item Basically Available
+        \item Soft state
+        \item Eventually consistent
+    \end{list2}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Algunas bases de datos NoSQL}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd REDIS}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MongoDB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Redis}
+
+\begin{list1}
+    \item In-memory Key-value store
+    \item Muy rápido, en mi notebook:
+    \begin{list2}
+        \item 20K inserts en 0.6 segundos
+        \item 20K selects en 1 segundo 
+    \end{list2}
+    \item Soporta operaciones con las claves
+    \item Los valores pueden ser:
+    \begin{list2}
+        \item bytes
+        \item Sets
+        \item Tuplas
+    \end{list2}
+    \item Operaciones atómicas (Push, Pop, ranges, etc)
+    \item Clientes para varios lenguajes
+    \item Replicación a disco
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd \textquestiondown Documentos?}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 1.44in
+\begin{center}
+\includegraphics[width=18cm]{documents.jpg}
+\end{center}
+\begin{flushright}
+    {\color{mdwblue}\tiny\trebucbd \href{http://www.flickr.com/photos/beglen/152027605/}{http://www.flickr.com/photos/beglen/152027605/}}
+\end{flushright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% document oriented
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{\textquestiondown Documentos?}
+
+\vskip 1in
+\begin{list1}
+    \item \textquotedblleft Objetos sin funciones\textquotedblright
+    \item Arrays (en PHP)
+    \item Tuples (en Python)
+    \item Hashes (en Ruby y Perl)
+    \item Sin esquema
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Documentos!}
+
+\input{source/document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2.5in
+\begin{center}
+    \includegraphics[width=10cm]{couchdb-logo.png}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{CouchDB}
+
+\begin{list1}
+    \item Proyecto Apache
+    \item JSON (no XML :-)
+    \item Interfaz RESTful (+/-)
+    \begin{list2}
+        \item Estándar (++)
+        \item Http es lento (--)
+    \end{list2}
+    \item MVCC
+    \item Safe IO (append only b-tree)
+    \item Multi-master
+    \item Excelente Interfaz de administración
+
+\end{list1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{CouchDB}
+
+\begin{list1}
+    \item Javascript incrustado
+    \item No soporta indexes (--)
+    \item Map/Reduce para realizar queries (+/-)
+    \item Soporta guardar archivos
+    \item Fácil de escalar (con proxies convencionales)
+    \item Distribuido y concurrente por naturaleza (Erlang)
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2in
+\begin{center}
+    \includegraphics[width=10cm]{couchdb.png}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2in
+\begin{center}
+    \includegraphics[width=25cm]{logo-mongoDB.png}
+\end{center}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MongoDB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB}
+
+\begin{list1}
+    \item <EN>Mongo</EN> != <ES>Mongo</ES>
+    \item Orientada a documento
+    \item Rápida, escalable, fácil de usar
+    \item Soporta índices
+    \begin{list2}
+        \item Simples
+        \item Compuestos
+        \item Geo-spatial
+    \end{list2}
+    \item Auto-sharding
+    \item Cliente PECL
+    \item {\em El \textquotedblleft MySQL\textquotedblright del NoSQL}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MongoDB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB}
+
+\begin{list1}
+    \item Soporta sub-documentos
+    \item Updates in-places
+    \item Javascript incrustrado
+    \item Map/Reduce para procesamiento off-line
+    \item Todo es un \textquotedblleft documento\textquotedblright
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd \href{http://bit.ly/mongodb-php}{http://bit.ly/mongodb-php}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd La diversión}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Operaciones}
+
+\begin{list1}
+    \item Select
+    \begin{list2}
+        \item \$gt, \$lt, \$gte, \$lte, \$eq, \$neq: >, <, >=, <=, ==, !=
+        \item \$in, \$nin
+        \item \$size, \$exists
+        \item \$where: Any javascript expression
+        \item group()
+        \item limit()
+        \item skip()
+    \end{list2}
+    \item Updates
+    \begin{list2}
+        \item \$set
+        \item \$unset
+        \item \$push
+        \item \$pull
+        \item \$inc
+    \end{list2}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd pecl install mongo}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Connección}
+
+\vskip 0.5in
+\input{source/connection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd FROM SQL to MongoDB}\\
+
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Count}
+
+\vskip 0.5in
+\input{source/count}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Consultas}
+
+\input{source/queries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Paginaciones}
+
+\vskip -0.1in
+\input{source/pagination}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Diseñando documentos}\\
+{\color{mdwblue}\trebucbd Simple multi-blog system}\\
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Collections}
+
+\begin{list1}
+    \item Blog
+    \item Post
+    \item User
+    \item Comment
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Documentos "blog"}
+
+\vskip -0.1in
+\input{source/document_blog}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Documentos "post"}
+
+\vskip -0.1in
+\input{source/document_post}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{otros documentos}
+
+\vskip -0.1in
+\input{source/document_user_comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Índices}
+
+\vskip -0.1in
+\input{source/document_indexes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Eso es todo :-) }
+\end{center}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Agregemos emociones :-) }
+\end{center}
+
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Let's shard it!}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Estrategia}
+
+\begin{list1}
+    \item Shard la coleción "blog" 
+    \item Shard la coleción "user" 
+    \item Las otras coleciones son isoladas
+    \begin{list2}
+        \item Crear \textquotedblleft namespaces\textquotedblright para post and comments (foo.post, foo.comments)
+        \item Modificar "blog" para agregar referencia hace el \textquotedblleft namespaces\textquotedblright
+    \end{list2}
+    \item MongoDB hará el trabajo por nosotros
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Configurando MongoDB}
+
+\vskip -0.1in
+\input{source/document_shard_config}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Nueva colección "blog"}
+
+\vskip -0.1in
+\input{source/document_shard_blog}
+
+\slide{}
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Selecionar el namespace correcto, y consultar :-)}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Preguntas?}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Gracias hackers!}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd \href{http://twitter.com/crodas}{@crodas}}\\
+\vskip 1in
+{\color{mdwblue}\Huge\trebucbd \href{http://crodas.org/}{crodas.org}}
+
+\end{center}
+
+\end{document}
