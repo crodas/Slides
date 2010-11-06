@@ -1,0 +1,97 @@
+% mdwslides.sty by Matt Welsh <mdw@cs.berkeley.edu>
+% Last updated 22 Nov 00
+%
+% This is a LaTeX package with a set of helper routines for generating
+% PDF-based presentations with pdflatex and the foiltex macros. To use 
+% it just
+%    \usepackage{mdwslides}
+% at the top of your document.
+%
+% Basic usage:
+%
+% \slide{Slide title}
+% \begin{list1}
+% \item This is a list item
+% \item This is another list item
+% 	\begin{list2}
+% 	\item Second-level list
+% 		\begin{list3}
+%		\item Third-level list
+% 		\end{list3}
+% 	\end{list2}
+% \end{list1}
+%
+% Macros for commonly-used TTF fonts are included. Margins, colors,
+% etc. all set for my regular presentation format; these are easy to
+% tweak.
+
+\RequirePackage{color}
+\RequirePackage[bgadd]{background}
+\RequirePackage{hyperref}
+\RequirePackage{pagetrans}
+
+% Define page margins
+\setlength{\topmargin}{-1.0in}
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\textwidth}{1.0in}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\textwidth}{10.0in}
+\setlength{\textheight}{7in} 
+\setlength{\foilheadskip}{-0.5in}
+
+% Define colors
+\definecolor{botcol}{rgb}{1.0,1.0,1.0}
+%\definecolor{botcol}{rgb}{0.75,0.905,1.0}
+%\definecolor{medcol}{rgb}{0.90,0.95,1.0}
+\definecolor{topcol}{rgb}{1.0,0.905,0.75}
+\definecolor{medcol}{rgb}{1.0,0.95,0.90}
+% Use following for gradient:
+\vpagecolor[topcol]{botcol}
+% Use following for solid color:
+%\pagecolor{medcol}
+\definecolor{mdwblue}{rgb}{0.2,0.2,0.6}
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+\definecolor{darkgreen}{rgb}{0.2,0.7,0.2}
+% Set default color (used for title, footer, etc.)
+\renewcommand\normalcolor{\color{mdwblue}}
+
+% Set up fonts
+\newcommand{\arial}{\fontencoding{T1}\usefont{T1}{arial}{m}{n}}
+\newcommand{\ariali}{\fontencoding{T1}\usefont{T1}{ariali}{m}{n}}
+\newcommand{\arialb}{\fontencoding{T1}\usefont{T1}{arialb}{m}{n}}
+\newcommand{\trebuc}{\fontencoding{T1}\usefont{T1}{trebuc}{m}{n}}
+\newcommand{\trebucbd}{\fontencoding{T1}\usefont{T1}{trebucbd}{m}{n}}
+\newcommand{\trebucit}{\fontencoding{T1}\usefont{T1}{trebucit}{m}{n}}
+\newcommand{\slingbold}{\fontencoding{T1}\usefont{T1}{slingbold}{m}{n}}
+\newcommand{\monotype}{\fontencoding{T1}\usefont{T1}{monotype}{m}{n}}
+
+% Set default fonts
+\def\rm{\trebuc}
+\def\bf{\trebucbd}
+\def\em{\trebucit}
+\rm
+
+% Define various macros
+\newcommand{\slide}[1]{\foilhead{\fontsize{30pt}{30pt}\trebucbd #1}}
+
+\newcommand{\mdwmed}{\fontsize{24pt}{24pt}\trebuc}
+\newcommand{\mdwsmall}{\fontsize{18pt}{18pt}\trebuc}
+\newcommand{\mdwtiny}{\fontsize{14pt}{14pt}\trebuc}
+\newcommand{\blueem}{\trebucit\color{mdwblue}}
+
+% Define list1, list2, list3 environments
+\newenvironment{list1}%
+{\begin{list}{\textcolor{darkgreen}{$\odot$}}{\setlength{\leftmargin}{0.5in}\setlength{\itemsep}{0.5ex}}\mdwmed}
+{\end{list}\normalsize}
+
+\newenvironment{list2}%
+{\begin{list}{\small\textcolor{darkgreen}{$\bullet$}}{\setlength{\leftmargin}{0.75in}\setlength{\itemsep}{0.5ex}}\small}
+{\end{list}\normalsize}
+
+\newenvironment{list3}%
+{\begin{list}{\small\textcolor{red}{$\triangleright$}}{\setlength{\leftmargin}{0.75in}\setlength{\itemsep}{0.5ex}\setlength{\topsep}{0.75ex}\setlength{\parskip}{0.5ex}}\mdwsmall\trebucit\color{mdwblue}}
+{\end{list}\normalsize\color{black}}
+
+% Turn of bullets on top-level list items (only used with itemize)
+\renewcommand\labelitemi{}
+

@@ -1,0 +1,8 @@
+All my slides (latex)
+
+How to build them:
+
++ Execute build & install fonts (on common)
++ move ppower4 (common) to your bin directory
++ Add common to your latex include path
++ type make on each slide directory

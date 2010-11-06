@@ -1,0 +1,15 @@
+This directory contains a set of free TrueType fonts that you may wish
+to use with the 'texslides' setup. I obtained them from a variety of
+sources. Verdana, Trebuchet, Monotype, Comic, and Georgia are from
+Microsoft. The others are available on several free TrueType web sites.
+All of these fonts are freely redistributable to my knowledge; let me
+know if you think they are not.
+
+You can download the file fonts.zip if you want them all as a single ZIP
+file. 
+
+See http://www.cs.berkeley.edu/~mdw/proj/texslides for more information
+on using PDFLaTeX and TrueType fonts for Powerpoint-free presentations.
+
+Matt Welsh
+mdw@cs.berkeley.edu

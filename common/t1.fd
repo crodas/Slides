@@ -1,0 +1,10 @@
+\ProvidesFile{t1.fd}[]
+\DeclareFontFamily{T1}{}{}
+\DeclareFontShape{T1}{}{m}{n}{<-> rec}{}
+\DeclareFontShape{T1}{}{bx}{n}{<->ssub * ptm/m/n}{}
+\DeclareFontShape{T1}{}{m}{it}{<->ssub * ptm/m/it}{}
+\DeclareFontShape{T1}{}{m}{sl}{<->ssub * ptm/m/sl}{}
+\DeclareFontShape{T1}{}{m}{sc}{<->ssub * ptm/m/sc}{}
+\DeclareFontShape{T1}{}{bx}{it}{<->ssub * ptm/b/it}{}
+\DeclareFontShape{T1}{}{bx}{sl}{<->ssub * ptm/b/sl}{}
+\pdfmapline{+rec\space <.ttf\space <T1-WGL4.enc}

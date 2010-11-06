@@ -1,0 +1,17 @@
+
+The `eso-pic' package
+
+This package makes it easy to add some picture commands to every page. 
+
+  eso-pic.dtx    -- the source file
+  eso-pic.ins    -- unpack `eso-pic.dtx' with `tex eso-pic.ins'
+  eso-ex1.tex, 
+  eso-ex2.tex,
+  eso-ex3.tex,
+  eso-ex4.tex, 
+  eso-ex5.tex    -- Some LaTeX examples
+  
+To produce the documentation run eso-pic.dtx through LaTeX.
+
+                          Rolf Niepraschk
+                          niepraschk@ptb.de

@@ -1,0 +1,84 @@
+%%
+%% This is file `contour.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% contour.dtx  (with options: `package')
+%% 
+%%   contour package
+%% 
+%%   Copyright  1999 Harald Harders
+%% 
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%% 
+%%   h.harders@tu-bs.de
+%% 
+%% 
+%%   Original: Richard Pfeiffer (richard.pfeiffer@t-online.de)
+%%   optimized by more white copies of the text
+%% 
+\def\packagename{contour}
+\def\fileversion{1.03}
+\def\filedate{2000/03/14}
+\def\docdate{2000/03/14}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{contour}
+         [\filedate\space version \fileversion]
+\message{Package `contour', Version \fileversion\space of \filedate.}
+\RequirePackage{color}
+\newcommand{\con@put}[3]{\makebox[0pt][l]{\hspace*{#1}\raisebox{#2}[0pt]{#3}}}
+\def\con@off{\let\con@color=\color%
+          \def\color##1##2{##2}}%
+\def\con@on{\let\color=\con@color}
+\newcommand{\contourlength}[1]{\def\contourbaselength{#1}}
+\contourlength{0.03em}
+\newlength{\con@length}
+\newcommand{\contour}{\@ifstar{\@contour[*]}{\@contour}}
+\newcommand{\@contour}[3][\@empty]{%
+  \setlength{\con@length}{\contourbaselength}%
+  \con@put{1\con@length}{0\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-1\con@length}{0\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0\con@length}{1\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0\con@length}{-1\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.707\con@length}{0.707\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.707\con@length}{-0.707\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.707\con@length}{0.707\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.707\con@length}{-0.707\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.383\con@length}{0.924\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.383\con@length}{-0.924\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.383\con@length}{0.924\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.383\con@length}{-0.924\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.924\con@length}{0.383\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.924\con@length}{-0.383\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.924\con@length}{0.383\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.924\con@length}{-0.383\con@length}{\color{#2}\con@off#3\con@on}%
+  %
+\ifx#1\@empty%
+\else%
+  \con@put{0.195\con@length}{0.981\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.195\con@length}{-0.981\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.195\con@length}{0.981\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.195\con@length}{-0.981\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.981\con@length}{0.195\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.981\con@length}{-0.195\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.981\con@length}{0.195\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.981\con@length}{-0.195\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.556\con@length}{0.831\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.556\con@length}{-0.831\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.556\con@length}{0.831\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.556\con@length}{-0.831\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.831\con@length}{0.556\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{0.831\con@length}{-0.556\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.831\con@length}{0.556\con@length}{\color{#2}\con@off#3\con@on}%
+  \con@put{-0.831\con@length}{-0.556\con@length}{\color{#2}\con@off#3\con@on}%
+\fi%
+  %
+  #3%
+}
+\endinput
+%%
+%% End of file `contour.sty'.
