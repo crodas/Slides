@@ -1,6 +1,6 @@
 % Thinking in Documents
 % (c) Copyleft 2010. 
-% Cesar Rodas 
+% César Rodas 
 %
 % Based on http://www.cs.berkeley.edu/~mdw/proj/texslides for details.
 
@@ -79,25 +79,10 @@ Latinoware 2010\\
         \item PHP
         \item MongoDB
     \end{list2}
-    \item PECL Developer
+    \item PHP/PECL Developer
     \item Work for a \href{http://www.plumwillow.com/plum/team}{cool company} (btw, we're hiring)
     \item \href{http://www.cesarodas.com/}{... and few other things}
 
-\end{list1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Agenda
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\slide{Agenda}
-
-\begin{list1}
-    \item Introduction to MongoDB
-    \item MongoDB Queries
-    \item Real life example:
-        \begin{list2}
-            \item Designing data model for a Wordpress.com like site
-            \item Optimize our data model to run in sharded environment
-        \end{list2}
 \end{list1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -120,46 +105,6 @@ Latinoware 2010\\
     \item Nested documents
     \item PECL client 
 \end{list1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\slide{}
-
-\vskip 4in
-\begin{center}
-    {\color{mdwblue}\Huge\trebucbd Documents?}
-\end{center}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\slide{}
-
-\vskip 4in
-\begin{center}
-    {\color{mdwblue}\Huge\trebucbd It's just an Array()}
-\end{center}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\slide{}
-
-\vskip 4in
-\begin{center}
-    {\color{mdwblue}\Huge\trebucbd In fact everything is an Array() in MongoDB}
-\end{center}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\slide{}
-\vskip 4in
-\begin{center}
-    {\color{mdwblue}\Huge\trebucbd \href{http://bit.ly/mongodb-php}{http://bit.ly/mongodb-php}}
-\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
@@ -237,7 +182,7 @@ Latinoware 2010\\
 
 \vskip 4in
 \begin{center}
-    {\color{mdwblue}\Huge\trebucbd Is it better than my MySQL (or Pg)?}
+    {\color{mdwblue}\Huge\trebucbd Is it better than MySQL (or Pg)?}
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -358,6 +303,72 @@ Latinoware 2010\\
 \vskip -0.1in
 \input{source/update}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd What about schema migration?}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Update Schema}
+
+\vskip -0.1in
+\input{source/update_schema}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Update Schema}
+
+\vskip -0.1in
+\input{source/update_schema2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Beyond SQL!}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Store files}
+\begin{list1}
+    \item No need of any distributed File system
+    \item Each file has a checksum
+    \item 100\% customizable
+    \begin{list2}
+        \item Open data structure
+        \item You can extend it to support locking
+        \item You can save as much meta data as you want
+    \end{list2}
+    \item Works in a sharded-environment
+    \item Native extension for \href{https://github.com/mdirolf/nginx-gridfs/}{NGINX}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Store files}
+
+\vskip -0.1in
+\input{source/gridfs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Read file}
+
+\vskip -0.1in
+\input{source/gridfs1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 

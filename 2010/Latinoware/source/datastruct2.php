@@ -7,7 +7,7 @@ $news = array(
     'authorName' => $user['user'],
     'categories' => array(
         // copy all categories (incuding _id and name)
-        $category[0], $category[1] ... $category[$x]
+        array('id' => $category[0]['_id'], 'name' => $category[0]['name']),
     ),
     'comments' => array(
         // copy 10 comments (we show 10 comments and pagination buttons)

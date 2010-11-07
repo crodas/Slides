@@ -6,8 +6,8 @@ $user = array(
 );
 
 $category = array(
-    array('name' => 'Sport'),
-    array('name' => 'Politcs')
+    array('name' => 'Sport', 'description' => 'foo'),
+    array('name' => 'Politcs', 'description' => 'bar')
 );
 
 $comment = array(

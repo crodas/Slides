@@ -10,7 +10,7 @@ $db->comments->update(array('news' => 1), $update, array('multiple' => true));
 // update news (and embed comments)
 $update = array(
     '$set' => array(
-        'category' => $list_of_first_10_comments,
+        'comments' => $list_of_first_10_comments,
         'authorName' => $new_name,
     )
 );
