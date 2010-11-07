@@ -18,7 +18,8 @@
 {\color{007700} );}\\
 {\color{007700} }{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} comment}{\color{007700} ->}{\color{0000BB} save}{\color{007700} (}{\color{0000BB} \$new\_comment}{\color{007700} );}\\
 {\color{007700} if\hspace{0.1in}(}{\color{0000BB} \$news}{\color{007700} [}{\color{DD0000} 'totalComments'}{\color{007700} ]\hspace{0.1in}<\hspace{0.1in}}{\color{0000BB} 10}{\color{007700} )\hspace{0.1in}\{}\\
-{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} news}{\color{007700} ->}{\color{0000BB} update}{\color{007700} (}{\color{0000BB} \$news}{\color{007700} ,\hspace{0.1in}array(}{\color{DD0000} '\$push'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}array(}{\color{DD0000} 'comments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$new\_comment}{\color{007700} ));}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$update\hspace{0.1in}}{\color{007700} =\hspace{0.1in}array(}{\color{DD0000} '\$push'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}array(}{\color{DD0000} 'comments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$new\_comment}{\color{007700} ));}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} news}{\color{007700} ->}{\color{0000BB} update}{\color{007700} (}{\color{0000BB} \$news}{\color{007700} ,\hspace{0.1in}}{\color{0000BB} \$update}{\color{007700} );}\\
 {\color{007700} \}}\\
 {\color{007700} }
 
