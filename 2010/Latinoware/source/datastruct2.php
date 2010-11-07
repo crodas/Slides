@@ -10,7 +10,7 @@ $news = array(
         $category[0], $category[1] ... $category[$x]
     ),
     'comments' => array(
-        // copy 10 comments (example)
+        // copy 10 comments (we show 10 comments and pagination buttons)
         $comment[0],
         $comment[1],
     ),

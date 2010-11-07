@@ -1,0 +1,25 @@
+\definecolor{000000}{rgb}{0.000,0.000,0.000}
+\definecolor{0000BB}{rgb}{0.000,0.000,0.733}
+\definecolor{007700}{rgb}{0.000,0.467,0.000}
+\definecolor{DD0000}{rgb}{0.867,0.000,0.000}
+\begin{noindent}{\color{000000} 
+{\color{0000BB} }\\
+{\color{0000BB} \$query\hspace{0.1in}}}{\color{007700} =\hspace{0.1in}array(}{\color{DD0000} '\_id'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$\_POST}{\color{007700} [}{\color{DD0000} 'news\_id'}{\color{007700} ]);}\\
+{\color{007700} }{\color{0000BB} \$properties\hspace{0.1in}}{\color{007700} =\hspace{0.1in}array(}{\color{DD0000} 'totalComments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} true}{\color{007700} );}\\
+{\color{007700} }{\color{0000BB} \$news\hspace{0.1in}}{\color{007700} =\hspace{0.1in}}{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} news}{\color{007700} ->}{\color{0000BB} findOne}{\color{007700} (}{\color{0000BB} \$query}{\color{007700} ,\hspace{0.1in}}{\color{0000BB} \$properties}{\color{007700} );}\\
+{\color{007700} }\\
+{\color{007700} if\hspace{0.1in}(empty(}{\color{0000BB} \$news}{\color{007700} ))\hspace{0.1in}throw\hspace{0.1in}new\hspace{0.1in}}{\color{0000BB} Exception}{\color{007700} (}{\color{DD0000} "not\hspace{0.1in}valid\hspace{0.1in}news"}{\color{007700} );}\\
+{\color{007700} }\\
+{\color{007700} }{\color{0000BB} \$new\_comment\hspace{0.1in}}{\color{007700} =\hspace{0.1in}array(}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'name'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$\_SESSION}{\color{007700} [}{\color{DD0000} 'user'}{\color{007700} ][}{\color{DD0000} 'name'}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'website'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$\_SESSION}{\color{007700} [}{\color{DD0000} 'user'}{\color{007700} ][}{\color{DD0000} 'website'}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'text'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$\_POST}{\color{007700} [}{\color{DD0000} 'text'}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'news'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$\_POST}{\color{007700} [}{\color{DD0000} 'news\_id'}{\color{007700} ],}\\
+{\color{007700} );}\\
+{\color{007700} }{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} comment}{\color{007700} ->}{\color{0000BB} save}{\color{007700} (}{\color{0000BB} \$new\_comment}{\color{007700} );}\\
+{\color{007700} if\hspace{0.1in}(}{\color{0000BB} \$news}{\color{007700} [}{\color{DD0000} 'totalComments'}{\color{007700} ]\hspace{0.1in}<\hspace{0.1in}}{\color{0000BB} 10}{\color{007700} )\hspace{0.1in}\{}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} news}{\color{007700} ->}{\color{0000BB} update}{\color{007700} (}{\color{0000BB} \$news}{\color{007700} ,\hspace{0.1in}array(}{\color{DD0000} '\$push'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}array(}{\color{DD0000} 'comments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$new\_comment}{\color{007700} ));}\\
+{\color{007700} \}}\\
+{\color{007700} }
+
+\end{noindent}
