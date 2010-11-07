@@ -1,0 +1,28 @@
+\definecolor{000000}{rgb}{0.000,0.000,0.000}
+\definecolor{0000BB}{rgb}{0.000,0.000,0.733}
+\definecolor{007700}{rgb}{0.000,0.467,0.000}
+\definecolor{DD0000}{rgb}{0.867,0.000,0.000}
+\definecolor{FF8000}{rgb}{1.000,0.502,0.000}
+\begin{noindent}{\color{000000} 
+{\color{0000BB} }\\
+{\color{0000BB} \$news\hspace{0.1in}}}{\color{007700} =\hspace{0.1in}array(}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'title'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{DD0000} 'My\hspace{0.1in}Talk\hspace{0.1in}about\hspace{0.1in}MongoDB'}{\color{007700} ,}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'content'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{DD0000} 'MongoDB\hspace{0.1in}rules,\hspace{0.1in}bla,\hspace{0.1in}bla!'}\\
+{\color{DD0000} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}'author'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$user}{\color{007700} [}{\color{DD0000} '\_id'}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{FF8000} //\hspace{0.1in}duplicated\hspace{0.1in}items}\\
+{\color{FF8000} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'authorName'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} \$user}{\color{007700} [}{\color{DD0000} 'user'}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'categories'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}array(}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{FF8000} //\hspace{0.1in}copy\hspace{0.1in}all\hspace{0.1in}categories\hspace{0.1in}(incuding\hspace{0.1in}\_id\hspace{0.1in}and\hspace{0.1in}name)}\\
+{\color{FF8000} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$category}{\color{007700} [}{\color{0000BB} 0}{\color{007700} ],\hspace{0.1in}}{\color{0000BB} \$category}{\color{007700} [}{\color{0000BB} 1}{\color{007700} ]\hspace{0.1in}...\hspace{0.1in}}{\color{0000BB} \$category}{\color{007700} [}{\color{0000BB} \$x}{\color{007700} ]}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}),}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'comments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}array(}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{FF8000} //\hspace{0.1in}copy\hspace{0.1in}10\hspace{0.1in}comments\hspace{0.1in}(example)}\\
+{\color{FF8000} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$comment}{\color{007700} [}{\color{0000BB} 0}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$comment}{\color{007700} [}{\color{0000BB} 1}{\color{007700} ],}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}),}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{FF8000} //\hspace{0.1in}total\hspace{0.1in}comments\hspace{0.1in}for\hspace{0.1in}this\hspace{0.1in}news,\hspace{0.1in}to\hspace{0.1in}made\hspace{0.1in}easier\hspace{0.1in}pagination}\\
+{\color{FF8000} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{DD0000} 'totalComments'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} count}{\color{007700} (}{\color{0000BB} \$comment}{\color{007700} ),}\\
+{\color{007700} );}\\
+{\color{007700} }
+
+\end{noindent}

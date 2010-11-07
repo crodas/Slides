@@ -1,0 +1,26 @@
+\definecolor{000000}{rgb}{0.000,0.000,0.000}
+\definecolor{0000BB}{rgb}{0.000,0.000,0.733}
+\definecolor{FF8000}{rgb}{1.000,0.502,0.000}
+\definecolor{DD0000}{rgb}{0.867,0.000,0.000}
+\definecolor{007700}{rgb}{0.000,0.467,0.000}
+\begin{noindent}{\color{000000} 
+{\color{0000BB} }\\
+{\color{0000BB} }}{\color{FF8000} //\hspace{0.1in}MySQL}\\
+{\color{FF8000} }{\color{DD0000} "SELECT\hspace{0.1in}news.*,\hspace{0.1in}user.name\hspace{0.1in}FROM\hspace{0.1in}news}\\
+{\color{DD0000} INNER\hspace{0.1in}JOIN\hspace{0.1in}user\hspace{0.1in}ON\hspace{0.1in}user.id\hspace{0.1in}=\hspace{0.1in}news.author\_id\hspace{0.1in}\hspace{0.1in}WHERE\hspace{0.1in}id\hspace{0.1in}=\hspace{0.1in}1"}\\
+{\color{DD0000} }\\
+{\color{DD0000} "SELECT\hspace{0.1in}category.category\hspace{0.1in}FROM\hspace{0.1in}category\_has\_news}\\
+{\color{DD0000} INNER\hspace{0.1in}JOIN\hspace{0.1in}category\hspace{0.1in}ON\hspace{0.1in}category\hspace{0.1in}WHERE\hspace{0.1in}news\_id\hspace{0.1in}=\hspace{0.1in}1"}\\
+{\color{DD0000} }\\
+{\color{DD0000} "SELECT\hspace{0.1in}*\hspace{0.1in}FROM\hspace{0.1in}comments\hspace{0.1in}}\\
+{\color{DD0000} INNER\hspace{0.1in}JOIN\hspace{0.1in}user\hspace{0.1in}ON\hspace{0.1in}user.id\hspace{0.1in}=\hspace{0.1in}comments.user\_id}\\
+{\color{DD0000} WHERE\hspace{0.1in}news\_id\hspace{0.1in}=\hspace{0.1in}1"}\\
+{\color{DD0000} }\\
+{\color{DD0000} }{\color{FF8000} //\hspace{0.1in}In\hspace{0.1in}MongoDB}\\
+{\color{FF8000} }{\color{0000BB} \$mongo\hspace{0.1in}}{\color{007700} =\hspace{0.1in}new\hspace{0.1in}}{\color{0000BB} MongoDB}{\color{007700} ;}\\
+{\color{007700} }{\color{0000BB} \$db\hspace{0.1in}}{\color{007700} =\hspace{0.1in}}{\color{0000BB} \$mongo}{\color{007700} ->}{\color{0000BB} database}{\color{007700} ;}\\
+{\color{007700} }\\
+{\color{007700} }{\color{0000BB} \$news\hspace{0.1in}}{\color{007700} =\hspace{0.1in}}{\color{0000BB} \$db}{\color{007700} ->}{\color{0000BB} news}{\color{007700} ->}{\color{0000BB} find}{\color{007700} (array(}{\color{DD0000} '\_id'\hspace{0.1in}}{\color{007700} =>\hspace{0.1in}}{\color{0000BB} 1}{\color{007700} ));}\\
+{\color{007700} }
+
+\end{noindent}

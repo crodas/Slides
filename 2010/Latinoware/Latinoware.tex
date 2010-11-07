@@ -1,0 +1,379 @@
+% Thinking in Documents
+% (c) Copyleft 2010. 
+% Cesar Rodas 
+%
+% Based on http://www.cs.berkeley.edu/~mdw/proj/texslides for details.
+
+\documentclass[20pt,landscape]{foils}
+\usepackage{eso-pic}
+\usepackage{mdwslides}
+
+\usepackage[english]{babel}
+\hypersetup{
+  pdfmenubar=false,
+  pdftoolbar=false,
+  colorlinks=true,
+  urlcolor=mygreen,
+  pdfpagemode={None},
+  pdftitle={MongoDB and PHP},
+  pdfauthor={Cesar D. Rodas},
+  pdfsubject={},
+  pdfkeywords={PHP, MongoDB}
+}
+
+\usepackage{hyperref}
+\usepackage{pause}
+\usepackage{graphicx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fondo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{bg2}{rgb}{1,1,1}
+\definecolor{bg2}{rgb}{1, 0.99, 0.99}
+\definecolor{bg1}{rgb}{0.99, 0.99, 0.5}
+\definecolor{mygreen}{rgb}{0,0.4,0}
+\vpagecolor[bg1]{bg2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set headers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\MyLogo{\color{mdwblue}\href{http://twitter.com/crodas}{@crodas} - \href{http://crodas.org}{http://cesarodas.com/} - \LaTeX}
+\rightfooter{\quad\textsf{\thepage}}
+
+\begin{document}
+\rm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presentacion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\LogoOff
+
+\vskip 3in
+\begin{center}
+{\color{mdwblue}\huge\trebucbd  MongoDB and PHP}
+
+\vskip 5ex
+César D. Rodas\\
+{\small\trebucit \href{mailto:crodas@ferpectos.com}{crodas@ferpectos.com}}\\
+{\mdwsmall\tt \href{http://cesarodas.com/}{http://cesarodas.com/}}\\
+    \vskip 5ex
+
+\vskip 1ex
+Latinoware 2010\\
+    Foz do Iguaçu, Brasil\\
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Who am I?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Who is this fellow?}
+\LogoOn
+
+\begin{list1}
+    \item Paraguayan :-)
+    \item Zealot of
+    \begin{list2}
+        \item Open Source (BSD-license)
+        \item PHP
+        \item MongoDB
+    \end{list2}
+    \item PECL Developer
+    \item Work for a \href{http://www.plumwillow.com/plum/team}{cool company} (btw, we're hiring)
+    \item \href{http://www.cesarodas.com/}{... and few other things}
+
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Agenda
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Agenda}
+
+\begin{list1}
+    \item Introduction to MongoDB
+    \item MongoDB Queries
+    \item Real life example:
+        \begin{list2}
+            \item Designing data model for a Wordpress.com like site
+            \item Optimize our data model to run in sharded environment
+        \end{list2}
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MongoDB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB}
+
+\begin{list1}
+    \item <EN>Mongo</EN> != <PT>Mongo</PT>
+    \item Document oriented database
+    \item Fast, Scalable, Easy to use (devel-friendly)
+    \item Support Indexes 
+    \begin{list2}
+        \item Simple
+        \item Compound 
+        \item Geo spatial
+    \end{list2}
+    \item Schemaless
+    \item Support sharding
+    \item Nested documents
+    \item PECL client 
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Documents?}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd It's just an Array()}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd In fact everything is an Array() in MongoDB}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd \href{http://bit.ly/mongodb-php}{http://bit.ly/mongodb-php}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Documents?}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd It's just an Array()}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd In fact everything is an Array() in MongoDB}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd \href{http://bit.ly/mongodb-php}{http://bit.ly/mongodb-php}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{MongoDB - Operations}
+
+\begin{list1}
+    \item Select
+    \begin{list2}
+        \item \$gt, \$lt, \$gte, \$lte, \$eq, \$neq: >, <, >=, <=, ==, !=
+        \item \$in, \$nin, \$or
+        \item \$size, \$exists
+        \item \$where: Any javascript expression
+        \item group()
+        \item limit()
+        \item skip()
+    \end{list2}
+    \item Update
+    \begin{list2}
+        \item \$set
+        \item \$unset
+        \item \$push
+        \item \$pull
+        \item \$inc
+        \item findAndModify()
+    \end{list2}
+\end{list1}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Is it better than my MySQL (or Pg)?}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd NO.}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd It is different.}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Differences with a rel. database}
+
+\begin{list1}
+    \item Denormalize data is not bad
+    \begin{list2}
+        \item It makes queries simplest and faster
+        \item Disk-space is much cheaper than CPU (and your user's time)
+        \item Much simple to distribute data across multiple nodes
+    \end{list2}
+    \item No CPU wasting doing ORM
+    \begin{list2}
+        \item Objects in the programming language and in the database
+        \item No abstraction to generate SQL
+    \end{list2}
+    \item No SQL injection :-)
+    \item No Joins (they are evil!)
+    \item Batch processing
+    \item No CREATE TABLE (or ALTER TABLE) needed
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 1in
+\begin{center}
+    \includegraphics{relation.png}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd The fun part}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Data-structure}
+
+\vskip -0.1in
+\input{source/datastruct1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip -0.3in
+\input{source/datastruct2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Select}
+
+\vskip -0.1in
+\input{source/query1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd What if the user changes its name?}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Update}
+
+\vskip -0.1in
+\input{source/update}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Questions?}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 3.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd Thanks}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+
+\vskip 2.8in
+\begin{center}
+{\color{mdwblue}\Huge\trebucbd \href{http://twitter.com/crodas}{@crodas}}\\
+\vskip 1in
+{\color{mdwblue}\Huge\trebucbd \href{http://crodas.org/}{crodas.org}}
+
+\end{center}
+
+\end{document}
