@@ -12,7 +12,8 @@ $new_comment = array(
     'news' => $_POST['news_id'],
 );
 $db->comment->save($new_comment);
+$update = array('$inc' => array('totalComments' => 1));
 if ($news['totalComments'] < 10) {
-    $update = array('$push' => array('comments' => $new_comment));
-    $db->news->update($news, $update);
+    $update['$push'] = array('comments' => $new_comment);
 }
+$db->news->update($news, $update);
