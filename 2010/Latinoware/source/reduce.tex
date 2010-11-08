@@ -1,0 +1,19 @@
+\definecolor{000000}{rgb}{0.000,0.000,0.000}
+\definecolor{0000BB}{rgb}{0.000,0.000,0.733}
+\definecolor{FF8000}{rgb}{1.000,0.502,0.000}
+\definecolor{007700}{rgb}{0.000,0.467,0.000}
+\begin{noindent}{\color{000000} 
+{\color{0000BB} }\\
+{\color{0000BB} }\\
+{\color{0000BB} }}{\color{FF8000} //\hspace{0.1in}we\hspace{0.1in}get\hspace{0.1in}(category.name,\hspace{0.1in}[1,\hspace{0.1in}1,\hspace{0.1in}1,\hspace{0.1in}1])\hspace{0.1in}and\hspace{0.1in}we\hspace{0.1in}}\\
+{\color{FF8000} //\hspace{0.1in}return\hspace{0.1in}the\hspace{0.1in}sum\hspace{0.1in}to\hspace{0.1in}get\hspace{0.1in}\{\_id:\hspace{0.1in}category.name,\hspace{0.1in}value:\hspace{0.1in}4\}}\\
+{\color{FF8000} }{\color{007700} var\hspace{0.1in}}{\color{0000BB} \$reduce\hspace{0.1in}}{\color{007700} =\hspace{0.1in}function(}{\color{0000BB} \$key}{\color{007700} ,\hspace{0.1in}}{\color{0000BB} \$values}{\color{007700} )\hspace{0.1in}\{}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}var\hspace{0.1in}}{\color{0000BB} \$count\hspace{0.1in}}{\color{007700} =\hspace{0.1in}}{\color{0000BB} 0}{\color{007700} ;}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}for\hspace{0.1in}(}{\color{0000BB} \$index\hspace{0.1in}in\hspace{0.1in}\$values}{\color{007700} )\hspace{0.1in}\{}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}}{\color{0000BB} \$count\hspace{0.1in}}{\color{007700} +=\hspace{0.1in}}{\color{0000BB} \$values}{\color{007700} [}{\color{0000BB} \$index}{\color{007700} ];}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\}}\\
+{\color{007700} \hspace{0.1in}\hspace{0.1in}\hspace{0.1in}\hspace{0.1in}return\hspace{0.1in}}{\color{0000BB} \$count}{\color{007700} ;}\\
+{\color{007700} \}}\\
+{\color{007700} }
+
+\end{noindent}

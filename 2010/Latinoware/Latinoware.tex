@@ -299,6 +299,17 @@ Latinoware 2010\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \slide{Update}
 
+\begin{list1}
+    \item We're duplicating the user name in several places
+    \item Update the name in every collection
+    \item MongoDB can update multiple documents at once
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Update}
+
 \vskip -0.1in
 \input{source/update}
 
@@ -310,6 +321,17 @@ Latinoware 2010\\
 \begin{center}
     {\color{mdwblue}\Huge\trebucbd What about schema migration?}
 \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Schemaless}
+
+\begin{list1}
+    \item We don't have constraints in the DB
+    \item Update the name in every collection
+    \item MongoDB can update multiple documents at once
+\end{list1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
@@ -368,6 +390,58 @@ Latinoware 2010\\
 
 \vskip -0.1in
 \input{source/gridfs1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\vskip 4in
+\begin{center}
+    {\color{mdwblue}\Huge\trebucbd Map/Reduce}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{}
+\LogoOff
+
+\begin{center}
+\includegraphics[height=18cm]{mapreduce.jpg}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Map/Reduce}
+\LogoOn
+
+\begin{list1}
+    \item Well known (Google's) map/reduce approach to process tons of data
+    \item Move the computation where the data is
+    \item GROUP/BY like operations, but more powerful (Javascript)
+    \item One function is applied to each news (map)
+    \item Map() produces 0 to N new values (key, value)
+    \item MongoDB sort everything by key.
+    \item Reduce is called for each (key, values) and return 1 value
+\end{list1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Map/Reduce}
+
+\vskip -0.1in
+\input{source/map}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\slide{Map/Reduce}
+
+\vskip -0.1in
+\input{source/reduce}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
