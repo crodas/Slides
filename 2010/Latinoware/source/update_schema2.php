@@ -6,7 +6,7 @@ while (true) {
         // where url doesn't exists (much better than $exists => false)
         'query' => array('url' => null),
         // set a new value for url, diff than null
-        'update' => array('$set' => 'url' => ' '),
+        'update' => array('$set' => array('url' => ' ')),
     ));
     if ($news['ok'] != 1)  break;
     $query = array('_id' => $news['value']['_id']):
