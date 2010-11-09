@@ -483,6 +483,7 @@
             <p>This presentation is an HTML5 website</p>
             <p>Press <span class="key">&rarr;</span> key to advance.</p>
             <p>Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
+            <p id="disclaimer-message">This slide uses styles/codes from Google's slides for <a href="http://slides.html5rocks.com/">HTML5</a></a<</p>
           </section>
         </div>
                 
@@ -652,7 +653,6 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
         </div>
 
         <div class="slide">
-          <header><span class="js">MongoDB</span> <h1></h1></header>
 
           <section class="middle intro">
             <h2>Is it better than my <em>relational</em> database?</h2>
@@ -661,7 +661,6 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
 
 
         <div class="slide">
-          <header><span class="js">MongoDB</span> <h1></h1></header>
 
           <section class="middle intro">
             <h2>No.</h2>
@@ -669,7 +668,6 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
         </div>
 
         <div class="slide">
-          <header><span class="js">MongoDB</span> <h1></h1></header>
 
           <section class="middle intro">
             <h2>It is different.</h2>
@@ -706,10 +704,9 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
 
 
         <div class="slide">
-          <header><span class="js">MongoDB</span> <h1>What is document?</h1></header>
+          <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
 
         <section>
-        <h2>It is an array/hash/object (without methods) that can be saved in the DB</h2>
 <pre>
 $user = array(
     'name' =&gt; 'crodas',
@@ -734,7 +731,315 @@ $comment = array(
 </section>
         </div>
 
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
 
+        <section>
+<pre>
+$news = array(
+    'title' =&gt; 'My Talk about MongoDB',
+    'content' =&gt; 'MongoDB rules, I like it, bla, bla... ',
+    'author' =&gt; $user['_id'],
+
+    // duplicate name
+    'authorName' =&gt; $user['name'],
+
+    // copy all categories (entiry structure) here
+    'categories' =&gt; array(
+        $category[1], $category[2]
+    ),
+
+    // copy first 10 comments
+    // (suppose we show 10 first comments, then we paginate it)
+    'comments' =&gt; array(
+        $comment[0], $comment[1], $comment[2] .. $comment[9]
+    ),
+
+    // we update this for every new comment
+    'totalComments' =&gt; $db-&gt;comments-&gt;count(array('news' =&gt; $news['_id'])),
+);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
+
+        <section>
+          <h2>Get on news by its ID</h2>
+<h2>MySQL</h2>
+<pre>
+SELECT news.*, user.name FROM news INNER JOIN user ON user.id = news.author id
+WHERE id = 1
+
+SELECT category.category FROM category has news INNER JOIN category ON category
+WHERE news id = 1
+
+SELECT * FROM comments INNER JOIN user ON user.id = comments.user id
+WHERE news id = 1
+</pre>
+<h2>MongoDB</h2>
+<pre>
+$mongo = new MongoDB;
+$db = $mongo-&gt;database;
+
+$news = $db-&gt;news-&gt;find(array('_id' =&gt; 1));
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
+
+        <section>
+          <h2>Get 10-most commented news</h2>
+<h2>MySQL</h2>
+<pre>
+// Too bored to think in SQL right now
+</pre>
+<h2>MongoDB</h2>
+<pre>
+$news = $db-&gt;news-&gt;find(array())-&gt;sort(array('totalComments' =&gt; -1))-&gt;limit(5);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Add a new comment</h1></header>
+
+        <section>
+<pre>
+// Fetch news
+$news = $db-&gt;news-&gt;findOne(array(
+    '_id' =&gt; $_POST['news_id'],            
+), array('totalComments' =&gt; true));
+
+if (empty($news)) throw new Exception("News is not valid");
+
+// Add new comment 
+$comment = array(
+    'user' =&gt; $_SESSION['user']['_id'],
+    'name' =&gt; $_SESSION['user']['name'],
+    'website' =&gt; $_SESSION['user']['website'],
+    'content' =&gt; $_POST['comment'],
+);
+$db-&gt;comment-&gt;save($comment);
+
+// Update totalComments
+$update = array('$inc' =&gt; array('totalComments' =&gt; 1));
+if ($news['totalComments'] < 10) {
+    // Should this be cashed in the news document?
+    $update['$push'] = array('comments' => $comment);
+}
+$db-&gt;news-&gt;update(array('_id' =&gt; $news['_id']), $update);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>What if the user changes its name?</h2>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update cached properties</h1></header>
+
+        <section>
+<pre>
+$update = array(
+    '$set' =&gt; array('name' =&gt; $new_name)
+);
+$option = array('multiple' =&gt; true);
+
+// update in comments collection
+$db-&gt;comments-&gt;update(array('user' =&gt; $user_id), $update, $option);
+
+//
+$update = array('$set' =&gt; array('comments.name' =&gt; $new name));
+$db-&gt;news-&gt;update(array('comments.user' =&gt; $user_id), $update, $option); 
+
+//
+$update = array('$set' =&gt; array('authorName' =&gt; $new_name));
+$db-&gt;news-&gt;update(array('author' =&gt; $user_id), $update, $option));
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+
+          <section class="middle intro">
+            <h2>What about schema migration?</h2>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
+
+        <section>
+<pre>
+// MongoDB (simple version – one node)
+foreach ($db-&gt;news-&gt;find() as $news) {
+    $query = array('_id' =&gt; $news['_id']);
+    $update = array('$set' =&gt;
+        array('url' =&gt; get_url_from_title($news['title']))
+    );
+    $db-&gt;news-&gt;update($query, $update);
+}
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
+
+        <section>
+<pre>
+// better approach (can run multiple instances safely)
+while (true) {
+    $news = $db-&gt;command(array(
+        'findAndModify' =&gt; 'news',
+        // where url doesn't exists (much better than $exists => false)
+        'query' =&gt; array('url' =&gt; null),
+            // set a new value for url, diff than null
+            'update' =&gt; array('$set' =&gt; array('url' =&gt; ' ')),
+        ));
+        if ($news['ok'] != 1) break;
+        
+        $query = array('_id' =&gt; $news['value']['_id']):
+        $update = array('$set' =&gt;
+            array('url' =&gt; get_url_from_title($news['value']['title']))
+        );
+        $db-&gt;news-&gt;update($query, $update);
+}
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Beyond SQL!</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Store file</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>No need of any distributed File system
+              </li><li>Each file has a checksum
+              </li><li>Open data structure
+              </li><li>You can extend it to support locking
+              </li><li>You can save as much meta data as you want
+              </li><li>Works in a sharded-environment
+              </li><li>Native extension for <a href="https://github.com/mdirolf/nginx-gridfs/">NGINX</a>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Storing file</h1></header>
+
+        <section>
+<pre>
+$grid = $db-&gt;getGridFS();
+$metadata = array(
+    "whatever" =&gt; "metadata",
+    "path" =&gt; "/foo",
+    "download" =&gt; 0
+);
+
+$grid-&gt;storeFile($filename, $metadata);
+
+// or
+$grid-&gt;storeBytes($bytes, $metadata);
+
+// Or (save $ FILE['foo'])
+$grid-&gt;storeUpload('foo', $metadata);
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Read file</h1></header>
+
+        <section>
+<pre>
+$grid = $db-&gt;getGridFS();
+$file = $grid-&gt;findOne(array('path' =&gt; '/foo'));
+
+// update download
+$update = array('$inc' =&gt; array('download' =&gt; 1));
+$id = array(' id' =&gt; $file-&gt;file[' id']);
+$grid-&gt;update($id, $update);
+
+// print it
+echo $file-&gt;Bytes();
+
+// or (a bit better)
+$tmp = '/tmp/apache/' . $file-&gt;file[' id'];
+if (!is file($tmp)) $file-&gt;write($tmp);
+virtual($tmp);
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Map/Reduce</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Map/Reduce</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Well known (Google’s) approach to process tons of data
+              </li><li>Move the computation where the data is
+              </li><li>Similar to GROUP BY, but more powerful (Javascript)
+              </li><li>One function is applied to each news (map)
+              </li><li>Map() produces 0 to N new values (key, value)
+              </li><li>MongoDB sort everything by key
+              </li><li>Reduce is called for each (key, values) and return 1 value
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Map/Reduce</h1></header>
+
+        <section>
+<pre>
+var map = function() {
+    if (!this.categories) {
+        return;
+    }
+    for (index in this.categories) {
+        // return (several times) a new document
+        // with id: category name, and value: 1
+        emit(this.categories[index].name, 1);
+    }
+};
+</pre>
+<pre>
+var reduce = function(key, values) {
+    var count = 0;
+    for (index in values) {
+        count += values[index];
+    }
+    return count;
+};
+</pre>
+</section>
+        </div>
 
         <div class="slide">
           <style>
@@ -745,22 +1050,29 @@ $comment = array(
               color: blue;
               text-decoration: underline;
               border: none;
+              clear: both;
             }
           </style>
           <section class="middle formula">
-            HTML5 ~=
-            <span class="html">HTML</span>
+            Mongo ~=
+            <span class="html">DB</span>
             +
-            <span class="css">CSS</span>
+            <span class="css">Documents</span>
             +
-            <span class="js">JS APIs</span>
+            <span class="js">JS</span>
             <p>
-              HTML5 <em class="stroke">=</em> Next Generation Features for Modern Web Development
+              MongoDB <em class="stroke">=</em> the future of webdevelopment
             </p>
             <p class="resource-link">
-              <a href="http://slides.html5rocks.com">http://slides.html5rocks.com</a>
-              <a href="http://www.html5rocks.com">http://www.html5rocks.com</a>
+              <a href="http://mongodb.org/">http://mongodb.org/</a><br />
+              <a href="http://github.com/crodas">http://github.com/crodas</a>
             </p>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Questions?</h2>
           </section>
         </div>
 
