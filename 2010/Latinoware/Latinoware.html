@@ -597,24 +597,24 @@
 <pre>
 // a <em>document</em> about me...
 $crodas = array(
-    <strong>'_id'</strong> => 'py-4290392'
-    'name' => 'Cesar',
-    'surname' => 'Rodas',
-    'e-mail' => 'crodas@php.net',
-    'works' => array(
-        array('name' => 'PlumWillow', 'obj' => 'we are hiring'),
-        array('name' => 'Some open source projects', 'obj' => 'I like it!'),
+    <strong>'_id'</strong> =&gt; 'py-4290392',
+    'name' =&gt; 'Cesar',
+    'surname' =&gt; 'Rodas',
+    'e-mail' =&gt; 'crodas@php.net',
+    'works' =&gt; array(
+        array('name' =&gt; 'PlumWillow', 'obj' =&gt; 'we are hiring'),
+        array('name' =&gt; 'Some open source projects', 'obj' =&gt; 'I like it!'),
     )
 );
 
 // we save it
-$db->users->save($crodas);
+$db-&gt;users-&gt;save($crodas);
 
 // we fetch it
-$db->users->find(array('e-mail' => 'crodas@php.net'));
+$db-&gt;users-&gt;find(array('e-mail' =&gt; 'crodas@php.net'));
 
 // or much better 
-$db->users->find(array('works.name' => 'PlumWillow'));
+$db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
 
 </pre>
 </section>
@@ -705,6 +705,36 @@ $db->users->find(array('works.name' => 'PlumWillow'));
         </div>
 
 
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>What is document?</h1></header>
+
+        <section>
+        <h2>It is an array/hash/object (without methods) that can be saved in the DB</h2>
+<pre>
+$user = array(
+    'name' =&gt; 'crodas',
+    'email' =&gt; 'crodas@php.net',
+    'website' =&gt; 'http://cesarodas.com',
+);
+
+$category = array(
+    'name' =&gt; 'Sport', 
+    'description' =&gt; 'Everything about football (proper football)',
+);
+
+$comment = array(
+    'news' =&gt; $news['_id'],
+    'text' =&gt; 'I like MongoDB',
+    'user' =&gt; $user['_id'],
+    // duplicate properties from user object (to avoid joins)
+    'name' =&gt; $user['name'],
+    'website' =&gt; $user['website'],
+);
+</pre>
+</section>
+        </div>
+
+
 
         <div class="slide">
           <style>
@@ -738,6 +768,7 @@ $db->users->find(array('works.name' => 'PlumWillow'));
 
     </div> <!-- presentation -->
 
+    <!-- {{{ Javascript -->
     <script>
       (function() {
         var doc = document;
@@ -1076,17 +1107,7 @@ $db->users->find(array('works.name' => 'PlumWillow'));
     </script>
 		<script>CFInstall.check({ mode: "overlay" });</script>
     <![endif]-->
+    <!-- }}} -->
     
-    <script>
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-15028909-5']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
   </body>
 </html>
