@@ -686,9 +686,9 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
             <ul class="summary">
               <li>Denormalize data is not bad
                 <ul>
-                    <li>It make queries simplest and fast</li>
+                    <li>It makes queries simplest and fast</li>
                     <li>Disk-space is much cheaper than CPU</li>
-                    <li>Much simple to distribute data across multiple nodes</li>
+                    <li>Much simpler to distribute data across multiple nodes</li>
                 </ul>
               </li><li>No CPU wasting doing ORM
               </li><li>No SQL injection
@@ -771,7 +771,7 @@ $news = array(
           <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
 
         <section>
-          <h2>Get on news by its ID</h2>
+          <h2>Get one news by its ID</h2>
 <h2>MySQL</h2>
 <pre class="sh_sql">
 SELECT news.*, user.name FROM news INNER JOIN user ON user.id = news.author id
@@ -990,7 +990,7 @@ echo $file-&gt;Bytes();
 
 // or (a bit better)
 $tmp = '/tmp/apache/' . $file-&gt;file[' id'];
-if (!is file($tmp)) $file-&gt;write($tmp);
+if (!is_file($tmp)) $file-&gt;write($tmp);
 virtual($tmp);
 
 </pre>
@@ -1047,14 +1047,14 @@ var reduce = function(key, values) {
 </section>
         </div>
         <div class="slide">
-          <header><span class="js">MongoDB</span> <h1>Replicate sets</h1></header>
+          <header><span class="js">MongoDB</span> <h1>Replica sets</h1></header>
 
           <section>
             <ul class="summary">
               <li>Advanced master/slave replication
               </li><li>Automatic failover and recovery
               </li><li>(optional) REST interface
-              </li><li>A write is only truly committed once it has replicated to a majority of members of the set
+              </li><li>A write is only truly committed once it has been replicated to a majority of members of the set
               </li><li>Perfect solution for apps. with high number of reads
             </li></ul>
           </section>
@@ -1065,8 +1065,8 @@ var reduce = function(key, values) {
 
           <section>
             <ul class="summary">
-              <li>One logical collection, several phisical collection
-              </li><li>Horizontal scaling across multiple node
+              <li>One logical collection, several physical collection
+              </li><li>Horizontal scaling across multiple nodes
               </li><li>Data partition is done by using a partition key
               </li><li>Can be combined with replica sets
             </li></ul>
