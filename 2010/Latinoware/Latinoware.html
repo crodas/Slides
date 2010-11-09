@@ -43,6 +43,12 @@
     <title>PHP and MongoDB</title>
     <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css" />
 
+    <script type="text/javascript" src="js/sh_main.js"></script>
+    <script type="text/javascript" src="js/sh_php.min.js"></script>
+    <script type="text/javascript" src="js/sh_javascript.min.js"></script>
+    <script type="text/javascript" src="js/sh_sql.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/sh_darkness.css">
+
     <!-- {{{ styles -->
     <style>
       body {
@@ -464,9 +470,8 @@
     </style>
     <!-- }}} slides -->
     
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   </head>
-  <body>
+  <body onload="sh_highlightDocument();">
     <div class="presentation">
       <div id="presentation-counter"></div>
       <div class="slides">
@@ -483,7 +488,7 @@
             <p>This presentation is an HTML5 website</p>
             <p>Press <span class="key">&rarr;</span> key to advance.</p>
             <p>Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
-            <p id="disclaimer-message">This slide uses styles/codes from Google's slides for <a href="http://slides.html5rocks.com/">HTML5</a></a<</p>
+            <p id="disclaimer-message">This slide uses styles/codes from Google's slides for <a href="http://slides.html5rocks.com/">HTML5</a></p>
           </section>
         </div>
                 
@@ -595,7 +600,7 @@
 
         <section>
         <h2>It is an array/hash/object (without methods) that can be saved in the DB</h2>
-<pre>
+<pre class="sh_php">
 // a <em>document</em> about me...
 $crodas = array(
     <strong>'_id'</strong> =&gt; 'py-4290392',
@@ -707,7 +712,7 @@ $db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
           <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 $user = array(
     'name' =&gt; 'crodas',
     'email' =&gt; 'crodas@php.net',
@@ -735,7 +740,7 @@ $comment = array(
           <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 $news = array(
     'title' =&gt; 'My Talk about MongoDB',
     'content' =&gt; 'MongoDB rules, I like it, bla, bla... ',
@@ -744,7 +749,7 @@ $news = array(
     // duplicate name
     'authorName' =&gt; $user['name'],
 
-    // copy all categories (entiry structure) here
+    // copy all categories (entire structure) here
     'categories' =&gt; array(
         $category[1], $category[2]
     ),
@@ -768,7 +773,7 @@ $news = array(
         <section>
           <h2>Get on news by its ID</h2>
 <h2>MySQL</h2>
-<pre>
+<pre class="sh_sql">
 SELECT news.*, user.name FROM news INNER JOIN user ON user.id = news.author id
 WHERE id = 1
 
@@ -779,7 +784,7 @@ SELECT * FROM comments INNER JOIN user ON user.id = comments.user id
 WHERE news id = 1
 </pre>
 <h2>MongoDB</h2>
-<pre>
+<pre class="sh_php">
 $mongo = new MongoDB;
 $db = $mongo-&gt;database;
 
@@ -794,11 +799,11 @@ $news = $db-&gt;news-&gt;find(array('_id' =&gt; 1));
         <section>
           <h2>Get 10-most commented news</h2>
 <h2>MySQL</h2>
-<pre>
+<pre class="sh_php">
 // Too bored to think in SQL right now
 </pre>
 <h2>MongoDB</h2>
-<pre>
+<pre class="sh_php">
 $news = $db-&gt;news-&gt;find(array())-&gt;sort(array('totalComments' =&gt; -1))-&gt;limit(5);
 </pre>
 </section>
@@ -808,7 +813,7 @@ $news = $db-&gt;news-&gt;find(array())-&gt;sort(array('totalComments' =&gt; -1))
           <header><span class="js">MongoDB</span> <h1>Add a new comment</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 // Fetch news
 $news = $db-&gt;news-&gt;findOne(array(
     '_id' =&gt; $_POST['news_id'],            
@@ -847,7 +852,7 @@ $db-&gt;news-&gt;update(array('_id' =&gt; $news['_id']), $update);
           <header><span class="js">MongoDB</span> <h1>Update cached properties</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 $update = array(
     '$set' =&gt; array('name' =&gt; $new_name)
 );
@@ -880,7 +885,7 @@ $db-&gt;news-&gt;update(array('author' =&gt; $user_id), $update, $option));
           <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 // MongoDB (simple version – one node)
 foreach ($db-&gt;news-&gt;find() as $news) {
     $query = array('_id' =&gt; $news['_id']);
@@ -897,7 +902,7 @@ foreach ($db-&gt;news-&gt;find() as $news) {
           <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 // better approach (can run multiple instances safely)
 while (true) {
     $news = $db-&gt;command(array(
@@ -946,7 +951,7 @@ while (true) {
           <header><span class="js">MongoDB</span> <h1>Storing file</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 $grid = $db-&gt;getGridFS();
 $metadata = array(
     "whatever" =&gt; "metadata",
@@ -970,7 +975,7 @@ $grid-&gt;storeUpload('foo', $metadata);
           <header><span class="js">MongoDB</span> <h1>Read file</h1></header>
 
         <section>
-<pre>
+<pre class="sh_php">
 $grid = $db-&gt;getGridFS();
 $file = $grid-&gt;findOne(array('path' =&gt; '/foo'));
 
@@ -1017,7 +1022,7 @@ virtual($tmp);
           <header><span class="js">MongoDB</span> <h1>Map/Reduce</h1></header>
 
         <section>
-<pre>
+<pre class="sh_javascript">
 var map = function() {
     if (!this.categories) {
         return;
@@ -1029,7 +1034,7 @@ var map = function() {
     }
 };
 </pre>
-<pre>
+<pre class="sh_javascript">
 var reduce = function(key, values) {
     var count = 0;
     for (index in values) {
@@ -1039,6 +1044,58 @@ var reduce = function(key, values) {
 };
 </pre>
 </section>
+        </div>
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Replicate sets</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Advanced master/slave replication
+              </li><li>Automatic failover and recovery
+              </li><li>(optional) REST interface
+              </li><li>A write is only truly committed once it has replicated to a majority of members of the set
+              </li><li>Perfect solution for apps. with high number of reads
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Sharding</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>One logical collection, several phisical collection
+              </li><li>Horizontal scaling across multiple node
+              </li><li>Data partition is done by using a partition key
+              </li><li>Can be combined with replica sets
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Sharding</h1></header>
+
+          <section>
+<pre class="sh_javascript">
+// Shard key
+{ x : 1}
+
+// Targeted
+db.foo.find( { x : 300 } ) 
+db.foo.find( { x : 300, age : 40 } )    
+db.foo.insert( &lt;object&gt; ) 
+db.foo.update( { x : 100 }, &lt;object&gt; ) 
+db.foo.remove( { x : 100 } ) 
+
+
+// Global
+db.foo.find( { age : 40 } ) 
+db.foo.find() // sequential
+db.foo.find(...).sort( { age : 1 } ) 
+db.foo.update( { age : 40 }, &lt;object&gt; ) 
+db.foo.remove( { age : 40 } )
+</pre>
+          </section>
         </div>
 
         <div class="slide">
@@ -1055,13 +1112,13 @@ var reduce = function(key, values) {
           </style>
           <section class="middle formula">
             Mongo ~=
-            <span class="html">DB</span>
-            +
             <span class="css">Documents</span>
+            +
+            <span class="html">Replicated|Distributed</span>
             +
             <span class="js">JS</span>
             <p>
-              MongoDB <em class="stroke">=</em> the future of webdevelopment
+              MongoDB <em class="stroke">=</em> the future of web-development
             </p>
             <p class="resource-link">
               <a href="http://mongodb.org/">http://mongodb.org/</a><br />
