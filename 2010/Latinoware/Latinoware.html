@@ -797,14 +797,15 @@ $news = $db-&gt;news-&gt;find(array('_id' =&gt; 1));
           <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
 
         <section>
-          <h2>Get 10-most commented news</h2>
+          <h2>Get 10-most commented news with more than 10 comments</h2>
 <h2>MySQL</h2>
 <pre class="sh_php">
 // Too bored to think in SQL right now
 </pre>
 <h2>MongoDB</h2>
 <pre class="sh_php">
-$news = $db-&gt;news-&gt;find(array())-&gt;sort(array('totalComments' =&gt; -1))-&gt;limit(5);
+$query = array('totalComments' =&gt; array('$gt' =&gt; 10));
+$news  = $db-&gt;news-&gt;find($query)-&gt;sort(array('totalComments' =&gt; -1))-&gt;limit(5);
 </pre>
 </section>
         </div>
