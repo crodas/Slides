@@ -516,7 +516,12 @@
                 Dropping SQL and thinking in objects
               </h2>
             </hgroup>
-            <p>César Rodas - <a href="mailto:crodas@php.net">crodas@php.net</a></p>
+            <p>
+                César Rodas - <a href="mailto:crodas@php.net">crodas@php.net</a><br/>
+                Latinoware 2010
+            </p>
+            <p>&nbsp;</p>
+            <p id="disclaimer-message"><em>This slides are Open source (Apache License) feel free to reuse it as you wish.</em></p>
           </section>
         </div>
 
@@ -912,14 +917,14 @@ while (true) {
         'query' =&gt; array('url' =&gt; null),
             // set a new value for url, diff than null
             'update' =&gt; array('$set' =&gt; array('url' =&gt; ' ')),
-        ));
-        if ($news['ok'] != 1) break;
-        
-        $query = array('_id' =&gt; $news['value']['_id']):
-        $update = array('$set' =&gt;
-            array('url' =&gt; get_url_from_title($news['value']['title']))
-        );
-        $db-&gt;news-&gt;update($query, $update);
+    ));
+    if ($news['ok'] != 1) break;
+
+    $query = array('_id' =&gt; $news['value']['_id']):
+    $update = array('$set' =&gt;
+        array('url' =&gt; get_url_from_title($news['value']['title']))
+    );
+    $db-&gt;news-&gt;update($query, $update);
 }
 
 </pre>
@@ -1066,7 +1071,7 @@ var reduce = function(key, values) {
           <section>
             <ul class="summary">
               <li>One logical collection, several physical collection
-              </li><li>Horizontal scaling across multiple nodes
+              </li><li>Horizontal scaling across multiple node
               </li><li>Data partition is done by using a partition key
               </li><li>Can be combined with replica sets
             </li></ul>
@@ -1096,6 +1101,19 @@ db.foo.find(...).sort( { age : 1 } )
 db.foo.update( { age : 40 }, &lt;object&gt; ) 
 db.foo.remove( { age : 40 } )
 </pre>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Capped Collections</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Fixed sized collections, high performance auto-FIFO age-out feature.
+              </li><li>You may insert new objects in the capped collection.
+              </li><li>The database does not allow deleting objects from a capped collection.
+              </li><li>Logging, Caching, Auto Archiving.
+            </li></ul>
           </section>
         </div>
 
@@ -1133,6 +1151,20 @@ db.foo.remove( { age : 40 } )
             <h2>Questions?</h2>
           </section>
         </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Useful projects</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Vork framework
+              </li><li>phpMoAdmin
+              </li><li><em>ActiveMongo</em> (the devel branch)
+              </li><li>Apache Solr
+            </li></ul>
+          </section>
+        </div>
+
 
       </div> <!-- slides -->
 
