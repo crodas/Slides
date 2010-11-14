@@ -1149,6 +1149,7 @@ db.foo.remove( { age : 40 } )
         <div class="slide">
           <section class="middle intro">
             <h2>Questions?</h2>
+            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
           </section>
         </div>
 
@@ -1472,13 +1473,27 @@ db.foo.remove( { age : 40 } )
             if (/^(input|textarea)$/i.test(e.target.nodeName)) return;
             
             switch (e.keyCode) {
+              case 71: // g (go to page)
+                  this.current = prompt("What page?");
+                  this._update();
+                  break;
+              case 36: // home
+                  this.current = 1;
+                  this._update();
+                  break;
               case 37: // left arrow
+              case 33: // PgUp
                 this.prev(); break;
+                break;
               case 39: // right arrow
               case 32: // space
+              case 34: // PgDn
+              case 13: // Enter
                 this.next(); break;
+                break;
               case 50: // 2
                 this.showNotes(); break;
+                break;
               case 51: // 3
                 this.switch3D(); break;
             }
