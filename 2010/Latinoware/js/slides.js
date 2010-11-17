@@ -253,6 +253,10 @@
     var _t = this;
     doc.addEventListener('keydown', 
         function(e) { _t.handleKeys(e); }, false);
+    doc.addEventListener('contextmenu', 
+        function(e) { e.preventDefault();return false;}, false);
+    doc.addEventListener('mousedown', 
+        function(e) { _t.handleClicks(e); return false;}, false);
     doc.addEventListener('mousewheel', 
         function(e) { _t.handleWheel(e); }, false);
     doc.addEventListener('DOMMouseScroll', 
@@ -329,6 +333,18 @@
         this.next();
         return;
       }
+    },
+    handleClicks: function(e) {
+        switch (e.which) {
+        case 1:
+            this.next();
+            break;
+        case 3:
+            e.preventDefault();
+            e.stopPropagation();
+            this.prev();
+            break;
+        }
     },
     handleKeys: function(e) {
       
