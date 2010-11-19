@@ -448,10 +448,6 @@ $option = array('multiple' =&gt; true);
 $db-&gt;comments-&gt;update(array('user' =&gt; $user_id), $update, $option);
 
 //
-$update = array('$set' =&gt; array('comments.name' =&gt; $new name));
-$db-&gt;news-&gt;update(array('comments.user' =&gt; $user_id), $update, $option); 
-
-//
 $update = array('$set' =&gt; array('authorName' =&gt; $new_name));
 $db-&gt;news-&gt;update(array('author' =&gt; $user_id), $update, $option));
 
