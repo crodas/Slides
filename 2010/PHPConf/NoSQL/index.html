@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 César Rodas (crodas@php.net)
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Based (layout/styles) on Google's slides for HTML5rocks.
+  -----------------------------------------------------
+
+  Copyright 2010 Google, Inc
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+                 Brad Neuberg
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>PHP and NoSQL</title>
+    <link href="../../../CommonWeb/GoogleFonts.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_main.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_php.min.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_javascript.min.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_sql.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../../CommonWeb/css/sh_darkness.css">
+    <link type="text/css" rel="stylesheet" href="../../../CommonWeb/css/slides.css">
+
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="presentation">
+      <div id="presentation-counter"></div>
+      <div class="slides">
+        <div class="slide">
+          <style>
+            .landing p {
+              font-size: 35px;
+            }
+            #disclaimer-message {
+              font-size: 20px;
+            }
+          </style>
+          <section class="middle landing">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span class="key">&rarr;</span> key to advance.</p>
+            <p>Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
+            <p id="disclaimer-message">This slide uses styles/codes from Google's slides for <a href="http://slides.html5rocks.com/">HTML5</a></p>
+          </section>
+        </div>
+                
+        <div class="slide">
+          <style>
+            .intro h1, .intro h2 {
+              color: black;
+            }
+            .intro h1 {
+              letter-spacing: -2px;
+              font-size: 96px;
+            }
+            .intro h2 {
+              margin-top: -5px;
+              font-size: 40px;
+              letter-spacing: -1px;
+            }
+          </style>
+          <section class="middle intro">
+            <hgroup>
+              <h1>
+                PHP and NoSQL
+              </h1>
+              <h2>
+                Dropping SQL and thinking in objects
+              </h2>
+            </hgroup>
+            <p>
+                César D. Rodas - <a href="mailto:crodas@php.net">crodas@php.net</a><br/>
+                PHPConference Brazil 2010<br />
+                São Paulo  - Brazil
+            </p>
+            <p>&nbsp;</p>
+            <p id="disclaimer-message"><em>These slides are Open Source (Apache License), feel free to reuse it as you wish.</em></p>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header>About me</header>
+          <section>
+            <style>
+              span.year {
+                display: inline-block;
+                text-align: right;
+                width: 120px;
+                letter-spacing: -2px;
+                padding-right: 10px;
+              }
+              hr {
+                visibility: hidden;
+                padding: 0;
+                margin: 0 0 -20px 0;
+              }
+              #timeline {
+                font-size: 50px;
+              }
+              #timeline li {
+                padding: 0;
+              }
+            </style>
+            
+            <ul id="timeline">
+              <li><span class="year">1987</span> <span class="html">Born</span></li>
+              <li><span class="year">2003</span> <span class="css">PHP</span></li>
+              <li><span class="year">2005</span> <span class="css">PHP</span> + <span class="js">Opensource</span></li>
+              <li><span class="year">2009</span> <span class="html">MongoDB</span></li>
+              <li><span class="year">2010</span> <span class="css">PHP</span> + <span class="js">Opensource</span> + <span class="html">MongoDB</span></li>
+            </ul>            
+          </section>
+        </div>
+
+        
+        <div class="slide">
+          <section class="middle formula">
+            $crodas ~=
+            <span class="css">PHP</span>
+            +
+            <span class="html">MongoDB</span>
+            +
+            <span class="js">(NodeJS|C)</span>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>NoSQL?</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>NoSQL?</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong>Set of databases without SQL ;-)</strong>
+              </li><li><strong>Usually with a different data behavior</strong>
+              </li><li><strong><em>No relation</em></strong>
+              </li><li><strong>This talk: MongoDB, Redis and Apache Solr</strong>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>MongoDB</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>What is it?</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><em>Mongo(EN)</em> != <em>Mongo(PT)</em> 
+              </li><li><em>Document</em> oriented database
+              </li><li>Fast, scalable and easy to use (devel-friendly)
+              </li><li>Support indexes
+              </li><li>Schemaless
+              </li><li>Sharding
+              </li><li>Replicated
+              </li><li>Support nested-documents
+              </li><li>PECL client (C driver for PHP)
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle formula">
+            $mongodb ~=
+            <span class="css">MySQL (performance)</span>
+            +
+            <span class="html">Object Relational Mapper</span>
+            -
+            <span class="js">overhead</span>
+          </section>
+        </div>
+        
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>What is document?</h1></header>
+
+        <section>
+        <h2>It is an array/hash/object (without methods) that can be saved in the DB</h2>
+<pre class="sh_php">
+// a <em>document</em> about me...
+$crodas = array(
+    <strong>'_id'</strong> =&gt; 'py-4290392',
+    'name' =&gt; 'Cesar',
+    'surname' =&gt; 'Rodas',
+    'e-mail' =&gt; 'crodas@php.net',
+    'works' =&gt; array(
+        array('name' =&gt; 'PlumWillow', 'obj' =&gt; 'we are hiring'),
+        array('name' =&gt; 'Some open source projects', 'obj' =&gt; 'I like it!'),
+    )
+);
+
+// we save it
+$db-&gt;users-&gt;save($crodas);
+
+// we fetch it
+$db-&gt;users-&gt;find(array('e-mail' =&gt; 'crodas@php.net'));
+
+// or much better 
+$db-&gt;users-&gt;find(array('works.name' =&gt; 'PlumWillow'));
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Operations (Selects)</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong>$gt, $lt, $gte, $lte, $eq, $neq</strong>: &gt;, &lt;, &gt;=, &lt;=, ==, !=
+              </li><li><strong>$in, $nin, $or, $min, $max, $all, $exists</strong>
+              </li><li><strong>$where</strong>: (and javascript code)
+              </li><li><strong>group()</strong>
+              </li><li><strong>distinct()</strong>
+              </li><li><strong>skip()</strong>
+              </li><li><strong>limit()</strong>
+              </li><li><strong>count()</strong>
+            </li></ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Operations (Update)</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong>$set, $unset</strong>
+              </li><li><strong>$push, $pull</strong>
+              </li><li><strong>$inc</strong>
+              </li><li><strong>findAndModify()</strong>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+
+          <section class="middle intro">
+            <h2>Is it better than my <em>relational</em> database?</h2>
+          </section>
+        </div>
+
+
+        <div class="slide">
+
+          <section class="middle intro">
+            <h2>No.</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+
+          <section class="middle intro">
+            <h2>It is different.</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Differences</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Denormalize data is not bad
+                <ul>
+                    <li>It makes queries simplest and fast</li>
+                    <li>Disk-space is much cheaper than CPU</li>
+                    <li>Much simpler to distribute data across multiple nodes</li>
+                </ul>
+              </li><li>No CPU wasting doing ORM
+              </li><li>No SQL injection
+              </li><li>No Joins (they are evil!)
+              </li><li>Batch processing
+              </li><li>No <em>CREATE TABLE</em> and <em>ALTER TABLE</em>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Differences</h1></header>
+
+          <section class="middle">
+            <img src="relation.png" />
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
+
+        <section>
+<pre class="sh_php">
+$user = array(
+    'name' =&gt; 'crodas',
+    'email' =&gt; 'crodas@php.net',
+    'website' =&gt; 'http://cesarodas.com',
+);
+
+$category = array(
+    'name' =&gt; 'Sport', 
+    'description' =&gt; 'Everything about football (proper football)',
+);
+
+$comment = array(
+    'news' =&gt; $news['_id'],
+    'text' =&gt; 'I like MongoDB',
+    'user' =&gt; $user['_id'],
+    // duplicate properties from user object (to avoid joins)
+    'name' =&gt; $user['name'],
+    'website' =&gt; $user['website'],
+);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Data structure</h1></header>
+
+        <section>
+<pre class="sh_php">
+$news = array(
+    'title' =&gt; 'My Talk about MongoDB',
+    'content' =&gt; 'MongoDB rules, I like it, bla, bla... ',
+    'author' =&gt; $user['_id'],
+
+    // duplicate name
+    'authorName' =&gt; $user['name'],
+
+    // copy all categories (entire structure) here
+    'categories' =&gt; array(
+        $category[1], $category[2]
+    ),
+
+    // copy first 10 comments
+    // (suppose we show 10 first comments, then we paginate it)
+    'comments' =&gt; array(
+        $comment[0], $comment[1], $comment[2] .. $comment[9]
+    ),
+
+    // comment users (reported by a dev at T!)
+    'commentsUsers' =&gt; array(
+        $userId =&gt; $userName
+    ),
+
+    // we update this for every new comment
+    'totalComments' =&gt; $db-&gt;comments-&gt;count(array('news' =&gt; $news['_id'])),
+);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
+
+        <section>
+          <h2>Get one news by its ID</h2>
+<h2>MySQL</h2>
+<pre class="sh_sql">
+SELECT news.*, user.name FROM news INNER JOIN user ON user.id = news.author id
+WHERE id = 1
+
+SELECT category.category FROM category has news INNER JOIN category ON category
+WHERE news id = 1
+
+SELECT * FROM comments INNER JOIN user ON user.id = comments.user id
+WHERE news id = 1
+</pre>
+<h2>MongoDB</h2>
+<pre class="sh_php">
+$mongo = new MongoDB;
+$db = $mongo-&gt;database;
+
+$news = $db-&gt;news-&gt;find(array('_id' =&gt; 1));
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Comparing</h1></header>
+
+        <section>
+          <h2>Get 10-most commented news with more than 10 comments</h2>
+<h2>MySQL</h2>
+<pre class="sh_php">
+// Too bored to think in SQL right now
+</pre>
+<h2>MongoDB</h2>
+<pre class="sh_php">
+$query = array('totalComments' =&gt; array('$gt' =&gt; 10));
+$news  = $db-&gt;news-&gt;find($query)-&gt;sort(array('totalComments' =&gt; -1))-&gt;limit(5);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Add a new comment</h1></header>
+
+        <section>
+<pre class="sh_php">
+// Fetch news
+$news = $db-&gt;news-&gt;findOne(array(
+    '_id' =&gt; $_POST['news_id'],            
+), array('totalComments' =&gt; true));
+
+if (empty($news)) throw new Exception("News is not valid");
+
+// Add new comment 
+$comment = array(
+    'user' =&gt; $_SESSION['user']['_id'],
+    'name' =&gt; $_SESSION['user']['name'],
+    'website' =&gt; $_SESSION['user']['website'],
+    'content' =&gt; $_POST['comment'],
+);
+$db-&gt;comment-&gt;save($comment);
+
+// Update totalComments
+$update = array('$inc' =&gt; array('totalComments' =&gt; 1));
+if ($news['totalComments'] < 10) {
+    // save the name in a diff property to update it easily
+    $update['$set'] = array('commentUsers.' . $comment['user'] =&gt; $comment['name']);
+    // remove it to avoid du-du-duplicated values
+    unset($comment['user'], $comment['name']);
+    // cache the comments
+    $update['$push'] = array('comments' => $comment);
+}
+$db-&gt;news-&gt;update(array('_id' =&gt; $news['_id']), $update);
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>What if the user changes its name?</h2>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update cached properties</h1></header>
+
+        <section>
+<pre class="sh_php">
+$update = array(
+    '$set' =&gt; array('name' =&gt; $new_name)
+);
+$option = array('multiple' =&gt; true);
+
+// update in comments collection
+$db-&gt;comments-&gt;update(array('user' =&gt; $user_id), $update, $option);
+
+$update = array('$set' =&gt; array('authorName' =&gt; $new_name));
+$db-&gt;news-&gt;update(array('author'd =&gt; $user_id), $update, $option));
+
+// update name on cached comments
+$update = array('$set' =&gt; array('commentUsers.' . $user_id =&gt; $new_name));
+$db-&gt;news-&gt;update(array(), $update, $option));
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+
+          <section class="middle intro">
+            <h2>What about schema migration?</h2>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
+
+        <section>
+<pre class="sh_php">
+// MongoDB (simple version – one node)
+foreach ($db-&gt;news-&gt;find() as $news) {
+    $query = array('_id' =&gt; $news['_id']);
+    $update = array('$set' =&gt;
+        array('url' =&gt; get_url_from_title($news['title']))
+    );
+    $db-&gt;news-&gt;update($query, $update);
+}
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Update schema</h1></header>
+
+        <section>
+<pre class="sh_php">
+// better approach (can run multiple instances safely)
+while (true) {
+    $news = $db-&gt;command(array(
+        'findAndModify' =&gt; 'news',
+        // where url doesn't exists (much better than $exists => false)
+        'query' =&gt; array('url' =&gt; null),
+            // set a new value for url, diff than null
+            'update' =&gt; array('$set' =&gt; array('url' =&gt; ' ')),
+    ));
+    if ($news['ok'] != 1) break;
+
+    $query = array('_id' =&gt; $news['value']['_id']):
+    $update = array('$set' =&gt;
+        array('url' =&gt; get_url_from_title($news['value']['title']))
+    );
+    $db-&gt;news-&gt;update($query, $update);
+}
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Beyond SQL!</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Store file</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>No need of any distributed File system
+              </li><li>Each file has a checksum
+              </li><li>Open data structure
+              </li><li>You can extend it to support locking
+              </li><li>You can save as much meta data as you want
+              </li><li>Works in a sharded-environment
+              </li><li>Native extension for <a href="https://github.com/mdirolf/nginx-gridfs/">NGINX</a>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Storing file</h1></header>
+
+        <section>
+<pre class="sh_php">
+$grid = $db-&gt;getGridFS();
+$metadata = array(
+    "whatever" =&gt; "metadata",
+    "path" =&gt; "/foo",
+    "download" =&gt; 0
+);
+
+$grid-&gt;storeFile($filename, $metadata);
+
+// or
+$grid-&gt;storeBytes($bytes, $metadata);
+
+// Or (save $ FILE['foo'])
+$grid-&gt;storeUpload('foo', $metadata);
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Read file</h1></header>
+
+        <section>
+<pre class="sh_php">
+$grid = $db-&gt;getGridFS();
+$file = $grid-&gt;findOne(array('path' =&gt; '/foo'));
+
+// update download
+$update = array('$inc' =&gt; array('download' =&gt; 1));
+$id = array(' id' =&gt; $file-&gt;file[' id']);
+$grid-&gt;update($id, $update);
+
+// print it
+echo $file-&gt;Bytes();
+
+// or (a bit better)
+$tmp = '/tmp/apache/' . $file-&gt;file[' id'];
+if (!is_file($tmp)) $file-&gt;write($tmp);
+virtual($tmp);
+
+</pre>
+</section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Map/Reduce</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Map/Reduce</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Well known (Google’s) approach to process tons of data
+              </li><li>Move the computation where the data is
+              </li><li>Similar to GROUP BY, but more powerful (Javascript)
+              </li><li>One function is applied to each news (map)
+              </li><li>Map() produces 0 to N new values (key, value)
+              </li><li>MongoDB sort everything by key
+              </li><li>Reduce is called for each (key, values) and return 1 value
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Map/Reduce</h1></header>
+
+        <section>
+<pre class="sh_javascript">
+var map = function() {
+    if (!this.categories) {
+        return;
+    }
+    for (index in this.categories) {
+        // return (several times) a new document
+        // with id: category name, and value: 1
+        emit(this.categories[index].name, 1);
+    }
+};
+</pre>
+<pre class="sh_javascript">
+var reduce = function(key, values) {
+    var count = 0;
+    for (index in values) {
+        count += values[index];
+    }
+    return count;
+};
+</pre>
+</section>
+        </div>
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Replica sets</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Advanced master/slave replication
+              </li><li>Automatic failover and recovery
+              </li><li>(optional) REST interface
+              </li><li>A write is only truly committed once it has been replicated to a majority of members of the set
+              </li><li>Perfect solution for apps. with high number of reads
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Sharding</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>One logical collection, several physical collection
+              </li><li>Horizontal scaling across multiple node
+              </li><li>Data partition is done by using a partition key
+              </li><li>Can be combined with replica sets
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Sharding</h1></header>
+
+          <section>
+<pre class="sh_javascript">
+// Shard key
+{ x : 1}
+
+// Targeted
+db.foo.find( { x : 300 } ) 
+db.foo.find( { x : 300, age : 40 } )    
+db.foo.insert( &lt;object&gt; ) 
+db.foo.update( { x : 100 }, &lt;object&gt; ) 
+db.foo.remove( { x : 100 } ) 
+
+
+// Global
+db.foo.find( { age : 40 } ) 
+db.foo.find() // sequential
+db.foo.find(...).sort( { age : 1 } ) 
+db.foo.update( { age : 40 }, &lt;object&gt; ) 
+db.foo.remove( { age : 40 } )
+</pre>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Capped Collections</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Fixed sized collections, high performance auto-FIFO age-out feature.
+              </li><li>You may insert new objects in the capped collection.
+              </li><li>The database does not allow deleting objects from a capped collection.
+              </li><li>Logging, Caching, Auto Archiving.
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <style>
+            p.resource-link {
+              font-size: 40px;
+            }
+            p.resource-link a {
+              color: blue;
+              text-decoration: underline;
+              border: none;
+              clear: both;
+            }
+          </style>
+          <section class="middle formula">
+            Mongo ~=
+            <span class="css">Documents</span>
+            +
+            <span class="html">Replicated|Distributed</span>
+            +
+            <span class="js">JS</span>
+            <p>
+              MongoDB <em class="stroke">=</em> the future of web-development
+            </p>
+            <p class="resource-link">
+              <a href="http://mongodb.org/">http://mongodb.org/</a><br />
+              <a href="http://github.com/crodas">http://github.com/crodas</a>
+            </p>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Questions?</h2>
+            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">MongoDB</span> <h1>Useful projects</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Vork framework
+              </li><li>phpMoAdmin
+              </li><li><em>ActiveMongo</em> (the devel branch)
+              </li><li>Apache Solr
+            </li></ul>
+          </section>
+        </div>
+
+
+      </div> <!-- slides -->
+
+    </div> <!-- presentation -->
+
+    <!-- {{{ Javascript -->
+    <script type="text/javascript" src="../../../CommonWeb/js/slides.js"></script>
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+		<script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+    <!-- }}} -->
+    
+  </body>
+</html>
