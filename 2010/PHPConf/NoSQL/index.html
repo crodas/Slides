@@ -757,8 +757,121 @@ db.foo.remove( { age : 40 } )
             </p>
             <p class="resource-link">
               <a href="http://mongodb.org/">http://mongodb.org/</a><br />
-              <a href="http://github.com/crodas">http://github.com/crodas</a>
             </p>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Redis</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">Redis</span> <h1>What is it?</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><em>Advanced</em> key-value store
+              </li><li>Similar to Memcached but:<ul>
+                    <li>Dataset is not volatile
+                    <li>Also lists, sets, and ordered sets
+                </ul>
+                </li><li>Atomic operations: inc, push, pull, add, remove
+                </li><li>Server side operations: server side union, intersection, difference between sets, and so forth
+                </li><li>Operation with keys
+                </li><li>Extensible binary safe protocol
+                </li><li>BSD license
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">Redis</span> <h1>When/how/where should you use it?</h1></header>
+
+          <section>
+            <ul class="summary">
+                <li>Memcached replacement
+                    <ul>
+                        <li>Cache database results
+                        <li>Cache static pages
+                        <li>Store and share sessions
+                    </li></ul>
+                </li><li>Tracking traffic or user interaction (i.e Stats gathering) 
+                </li><li>A job queue system (like Gearman)
+                </li><li>Anything that need high rates of read and/or writes per second
+            </li></ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Apache Solr</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">Solr</span> <h1>What is it?</h1></header>
+
+          <section>
+            <ul class="summary">
+                <li>Fast opensource search platform
+                </li><li>Written in Java <small><em>(but it is fast! was it coded by Harry Poter?)</em></small>
+                </li><li>Speaks REST <small><em>(json, xml and also PHP serialization)</em></small>
+                </li><li>Can index rich document <small><em>(e.g., Word, PDF)</em></small>
+                </li><li>Reach query support <small><em>(pretty similar to Google's syntax)</em></small>
+                </li><li>It has schemas, and support multiple values per property
+                </li><li>Can be distributed to multiple machines <small><em>(replication &amp; sharding)</em></small>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">Solr</span> <h1>What makes it different?</h1></header>
+
+          <section>
+            <ul class="summary">
+                </li><li>Can return data not only the ID (as sphinxsearch does)
+                </li><li>Extensible through plugins
+                </li><li>Spellcheck plugin
+                </li><li><a href="http://www.slideshare.net/LucidImagination/building-localgeo-search-with-apache-lucene-and-solr?crodas" target="_blank">Geo-search plugin</a>
+                </li><li>Easy to push data
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">Solr</span> <h1>Search examples</h1></header>
+
+          <section>
+            <ul class="summary">
+                <li>phpconference in brazil
+                </li><li>"phpconference in brazil"
+                </li><li>title:php
+                </li><li>title:"php brazil"
+                </li><li>type:bike AND price:[50 TO 100] 
+                </li><li>(type:bike OR (sport:football AND type:ball)) AND (price:[50 TO 100] OR price:[* TO 10])
+                </li><li>tag:php AND tag:brazil
+                </li><li>tag:php OR tag:phpbr
+                </li><li>tag:php AND tag:brazil -type:blogpost
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Conclusion</h1></header>
+          <section class="middle intro">
+                <h2>Use the web-tool for your job<br />(<small>but believe me, MongoDB, Solr and Redis<br/>are the best tool for web-development</small>)</h2>
+
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Thanks!</h2>
+            <h2>Questions?</h2>
+            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
           </section>
         </div>
 
@@ -774,10 +887,12 @@ db.foo.remove( { age : 40 } )
 
           <section>
             <ul class="summary">
-              <li>Vork framework
-              </li><li>phpMoAdmin
-              </li><li><em>ActiveMongo</em> (the devel branch)
-              </li><li>Apache Solr
+              <li><a href="http://github.com/crodas">http://github.com/crodas</a>
+              </li><li><a href="http://vork.us/?crodas">Vork framework</a>
+              </li><li><a href="http://www.phpmoadmin.com/?crodas">phpMoAdmin</a>
+              </li><li><a href="http://github.com/crodas/ActiveMongo/tree/devel?crodas"><em>ActiveMongo</em> (the devel branch)</a>
+              </li><li><a href="http://lucene.apache.org/solr/?crodas">Apache Solr</a>
+              </li><li><a href="http://code.google.com/p/redis/?crodas">Redis</a>
             </li></ul>
           </section>
         </div>
