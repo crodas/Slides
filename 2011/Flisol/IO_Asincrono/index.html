@@ -44,7 +44,6 @@
     <link href="../../../CommonWeb/GoogleFonts.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="../../../CommonWeb/js/sh_main.js"></script>
-    <script type="text/javascript" src="../../../CommonWeb/js/sh_php.min.js"></script>
     <script type="text/javascript" src="../../../CommonWeb/js/sh_javascript.min.js"></script>
     <script type="text/javascript" src="../../../CommonWeb/js/sh_sql.min.js"></script>
     <link type="text/css" rel="stylesheet" href="../../../CommonWeb/css/sh_darkness.css">
@@ -144,7 +143,7 @@
         <div class="slide">
           <header><h1>Problema</h1></header>
         <section class="summary">
-<pre class="sh_php">
+<pre class="sh_javascript">
 var nombre = IO.LeerDelTeclado();
 console.log(nombre);
 Programa.hacerAlgoUtil();
@@ -155,7 +154,7 @@ Programa.hacerAlgoUtil();
         <div class="slide">
           <header><h1>Fork()</h1></header>
         <section class="summary">
-<pre class="sh_php">
+<pre class="sh_javascript">
 var pid = fork();
 if (pid == 0) {
     Programa.hacerAlgoUtil();
@@ -172,7 +171,7 @@ if (pid == 0) {
         <div class="slide">
           <header><h1>Threads</h1></header>
         <section class="summary">
-<pre class="sh_php">
+<pre class="sh_javascript">
 var thread = new Thread();
 thread.run(function() {
     var nombre = IO.LeerDelTeclado();
@@ -210,7 +209,7 @@ Programa.hacerAlgoUtil();
               <li><strong><em>Encolar</em> las operaciones de IO</strong>
               </li><li><strong>Concepto de eventos</strong>
               </li><li><strong>Complicada de aplicar (<em>excepto con JS</em>)</strong>
-              </li><li><strong>Si has programado en la web, ya lo haz hecho</strong>
+              </li><li><strong>Si has programado en la web, ya lo has hecho</strong>
               </li><li><strong>No es la mejor opción para computación intensiva</strong>
               </li><li><strong>Nada puede bloquear el proceso</strong>
             </li></ul>
@@ -220,7 +219,7 @@ Programa.hacerAlgoUtil();
         <div class="slide">
           <header><h1>IO Asíncrono</h1></header>
         <section class="summary">
-<pre class="sh_php">
+<pre class="sh_javascript">
 IO.LeerDelTeclado(function(nombre) {
     console.log(nombre);
 });
@@ -233,7 +232,7 @@ Programa.hacerAlgoUtil();
           <header><h1>IO Asíncrono</h1></header>
         <section class="summary">
         <h2> Si necesitamos <em>sincronía</em></h2>
-<pre class="sh_php">
+<pre class="sh_javascript">
 IO.LeerDelTeclado(function(nombre) {
     console.log(nombre);
     Programa.hacerAlgoUtil();
@@ -246,7 +245,7 @@ IO.LeerDelTeclado(function(nombre) {
           <header><h1>IO Asíncrono</h1></header>
         <section class="summary">
         <h2>Algo más real</h2>
-<pre class="sh_php">
+<pre class="sh_javascript">
 var web = new ServidorWeb();
 
 web.on('peticion', function(peticionWeb) {
@@ -272,8 +271,81 @@ web.escuchar(8080);
             <ul class="summary">
               <li>Montón de Azucar sobre V8
               </li><li><em>No</em> es un lenguaje de programación, es Javascript
+              </li><li>Orientado para escribir servidores de red (<strong>Web</strong>)
+              </li><li>Excelente para manejar concurrencia.
             </li></ul>
           </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>NodeJS</h1></header>
+        <section class="summary" style="font-size: 20px">
+        <h2>Webserver</h2>
+<pre class="sh_javascript">
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World\n');
+}).listen(8124, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:8124/');
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>NodeJS</h1></header>
+        <section class="summary" style="font-size: 20px">
+        <h2>Webserver</h2>
+<pre class="sh_javascript">
+var http = require('http');
+var i = 0;
+http.createServer(function (req, res) {
+    var id = i++;
+    setTimeout(function() {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Hello World: ' + id + ' \n');
+    }, 10 * 1000);
+}).listen(8124, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:8124/');
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Tradicional</h1></header>
+        <section class="summary" style="font-size: 20px">
+<pre class="sh_javascript">
+function existe() {
+    return DB.count() == 1;
+}
+
+if (existe()) {
+    console.log('OK');
+} else {
+    console.log('Error');
+}
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>NodeJS</h1></header>
+        <section class="summary" style="font-size: 20px">
+<pre class="sh_javascript">
+function existe(<em>callback</em>) {
+    DB.count(function(total) {
+        callback(total == 1);
+    });
+}
+
+existe(function(result) {
+    if (result) {
+        console.log('OK');
+    } else {
+        console.log('Error');
+});
+</pre>
+        </section>
         </div>
 
         <div class="slide">
