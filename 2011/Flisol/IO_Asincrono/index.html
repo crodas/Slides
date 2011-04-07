@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 César Rodas (crodas@php.net)
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Based (layout/styles) on Google's slides for HTML5rocks.
+  -----------------------------------------------------
+
+  Copyright 2010 Google, Inc
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+                 Brad Neuberg
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>PHP and NoSQL</title>
+    <link href="../../../CommonWeb/GoogleFonts.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_main.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_php.min.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_javascript.min.js"></script>
+    <script type="text/javascript" src="../../../CommonWeb/js/sh_sql.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../../CommonWeb/css/sh_darkness.css">
+    <link type="text/css" rel="stylesheet" href="../../../CommonWeb/css/slides.css">
+
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="presentation">
+      <div id="presentation-counter"></div>
+      <div class="slides">
+        <div class="slide">
+          <style>
+            .landing p {
+              font-size: 35px;
+            }
+            #disclaimer-message {
+              font-size: 20px;
+            }
+          </style>
+          <section class="middle landing">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span class="key">&rarr;</span> key to advance.</p>
+            <p>Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
+            <p id="disclaimer-message">This slide uses styles/codes from Google's slides for <a href="http://slides.html5rocks.com/">HTML5</a></p>
+          </section>
+        </div>
+                
+        <div class="slide">
+          <style>
+            .intro h1, .intro h2 {
+              color: black;
+            }
+            .intro h1 {
+              letter-spacing: -2px;
+              font-size: 96px;
+            }
+            .intro h2 {
+              margin-top: -5px;
+              font-size: 40px;
+              letter-spacing: -1px;
+            }
+          </style>
+          <section class="middle intro">
+            <hgroup>
+              <h1>
+                NodeJS
+              </h1>
+              <h2>
+                Introducción al IO Asíncrono.
+              </h2>
+            </hgroup>
+            <p>
+                César D. Rodas - <a href="mailto:crodas@php.net">crodas@php.net</a><br/>
+                Flisol 2011 - Paraguay<br />
+                
+            </p>
+            <p>&nbsp;</p>
+            <p id="disclaimer-message"><em>Slides</em> protegidas bajo licencia BSD</p>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <header>About me</header>
+          <section>
+            <style>
+              span.year {
+                display: inline-block;
+                text-align: right;
+                width: 120px;
+                letter-spacing: -2px;
+                padding-right: 10px;
+              }
+              hr {
+                visibility: hidden;
+                padding: 0;
+                margin: 0 0 -20px 0;
+              }
+              #timeline {
+                font-size: 50px;
+              }
+              #timeline li {
+                padding: 0;
+              }
+            </style>
+            
+            <ul id="timeline">
+              <li><span class="year">1987</span> <span class="html">Born</span></li>
+              <li><span class="year">2003</span> <span class="css">PHP</span></li>
+              <li><span class="year">2005</span> <span class="css">PHP</span> + <span class="js">Opensource</span></li>
+              <li><span class="year">2009</span> <span class="html">MongoDB</span></li>
+              <li><span class="year">2010</span> <span class="css">PHP</span> + <span class="js">Opensource</span> + <span class="html">MongoDB</span></li>
+            </ul>            
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Problema</h1></header>
+        <section class="summary">
+<pre class="sh_php">
+var nombre = IO.LeerDelTeclado();
+console.log(nombre);
+Programa.hacerAlgoUtil();
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Fork()</h1></header>
+        <section class="summary">
+<pre class="sh_php">
+var pid = fork();
+if (pid == 0) {
+    Programa.hacerAlgoUtil();
+} else if (pid == -1) {
+    console.log('estas jodido!');
+} else {
+    var nombre = IO.LeerDelTeclado();
+    console.log(nombre);
+}
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Threads</h1></header>
+        <section class="summary">
+<pre class="sh_php">
+var thread = new Thread();
+thread.run(function() {
+    var nombre = IO.LeerDelTeclado();
+    console.log(nombre);
+});
+Programa.hacerAlgoUtil();
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Problemas</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong>Comunicación entre procesos/hilos</strong>
+              </li><li><strong>Propensa a errores</strong>
+              </li><li><strong>Costosas</strong>
+              </li><li><strong>Excelentes para computación intensiva</strong>
+            </li></ul>
+          </section>
+        </div>
+        
+        <div class="slide">
+          <section class="middle intro">
+            <h2>IO Asíncrono</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>IO Asíncrono</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong><em>Encolar</em> las operaciones de IO</strong>
+              </li><li><strong>Concepto de eventos</strong>
+              </li><li><strong>Complicada de aplicar (<em>excepto con JS</em>)</strong>
+              </li><li><strong>Si has programado en la web, ya lo haz hecho</strong>
+              </li><li><strong>No es la mejor opción para computación intensiva</strong>
+              </li><li><strong>Nada puede bloquear el proceso</strong>
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>IO Asíncrono</h1></header>
+        <section class="summary">
+<pre class="sh_php">
+IO.LeerDelTeclado(function(nombre) {
+    console.log(nombre);
+});
+Programa.hacerAlgoUtil();
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>IO Asíncrono</h1></header>
+        <section class="summary">
+        <h2> Si necesitamos <em>sincronía</em></h2>
+<pre class="sh_php">
+IO.LeerDelTeclado(function(nombre) {
+    console.log(nombre);
+    Programa.hacerAlgoUtil();
+});
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>IO Asíncrono</h1></header>
+        <section class="summary">
+        <h2>Algo más real</h2>
+<pre class="sh_php">
+var web = new ServidorWeb();
+
+web.on('peticion', function(peticionWeb) {
+    DB.query('algo', function(respuesta) {
+        peticionWeb.responder(respuesta);
+    });
+});
+web.escuchar(8080);
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>NodeJS</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><span class="js">NodeJS</span> <h1>Concepto</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li>Montón de Azucar sobre V8
+              </li><li><em>No</em> es un lenguaje de programación, es Javascript
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Conclusion</h1></header>
+          <section class="middle intro">
+                <h2>bla, bla</h2>
+
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Gracias!</h2>
+            <h2>Preguntas?</h2>
+            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Preguntas?</h2>
+            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
+          </section>
+        </div>
+
+
+      </div> <!-- slides -->
+
+    </div> <!-- presentation -->
+
+    <!-- {{{ Javascript -->
+    <script type="text/javascript" src="../../../CommonWeb/js/slides.js"></script>
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+		<script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+    <!-- }}} -->
+    
+  </body>
+</html>
