@@ -40,7 +40,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-    <title>PHP and NoSQL</title>
+    <title>NodeJS</title>
     <link href="../../../CommonWeb/GoogleFonts.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="../../../CommonWeb/js/sh_main.js"></script>
@@ -259,6 +259,25 @@ web.escuchar(8080);
         </div>
 
         <div class="slide">
+          <header><h1>IO Asíncrono</h1></header>
+        <section class="summary" style="font-size: 20px">
+          <h2>Internamente</h2>
+<pre class="sh_javascript">
+var Cola = [];
+do {
+    if (Sistema.Operativo.hayAlgoParaMi(Cola) > 0) {
+        for(var e in Cola.activos) {
+            Cola[e].funcion(<parametro>);
+        }
+    } else {
+        usleep(10000);
+    }
+} while (Queue.esperando.length);
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
           <section class="middle intro">
             <h2>NodeJS</h2>
           </section>
@@ -270,7 +289,7 @@ web.escuchar(8080);
           <section>
             <ul class="summary">
               <li>Montón de Azucar sobre V8
-              </li><li><em>No</em> es un lenguaje de programación, es Javascript
+              </li><li><em>No</em> es un lenguaje de programación, es <strong>Javascript</strong>
               </li><li>Orientado para escribir servidores de red (<strong>Web</strong>)
               </li><li>Excelente para manejar concurrencia.
             </li></ul>
@@ -278,48 +297,116 @@ web.escuchar(8080);
         </div>
 
         <div class="slide">
-          <header><h1>NodeJS</h1></header>
-        <section class="summary" style="font-size: 20px">
-        <h2>Webserver</h2>
+          <section class="middle intro">
+            <h2>Javascript?</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+        <section class="summary" style="margin-top: 230px;">
 <pre class="sh_javascript">
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World\n');
-}).listen(8124, "127.0.0.1");
-console.log('Server running at http://127.0.0.1:8124/');
+var boton;
+boton = document.getElementById('#boton');
+boton.onclick = function() {
+    alert('Clicked!');
+};
 </pre>
         </section>
         </div>
 
         <div class="slide">
-          <header><h1>NodeJS</h1></header>
+        <section class="summary" style="margin-top: 260px;">
+<pre class="sh_javascript">
+$.post("/some/url", function(response) {
+    console.log(response);
+}, 'json');
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Código Real</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Entrada/salida</h1></header>
         <section class="summary" style="font-size: 20px">
-        <h2>Webserver</h2>
+<pre class="sh_javascript">
+var Fs = require('fs');
+
+var file = fs.createReadStream('sample.txt', {
+    flags: 'r',
+    encoding: 'binary',
+    start: 10, 
+    end: 100,
+    buffer: 10
+});
+file.on('data', function(data) {
+    console.log(data);
+});
+file.on('error', function (excepcion) {
+    console.log('error:' + excepcion);
+});
+file.on('close', function() {
+    console.log('chau!');
+});
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Webserver</h1></header>
+        <section class="summary" style="font-size: 20px">
+<pre class="sh_javascript">
+var http = require('http');
+var i = 0;
+http.createServer(function (req, res) {
+    console.log('request ' + (i++));
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World\n');
+}).listen(8080, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:8080/');
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header><h1>Webserver</h1></header>
+        <section class="summary" style="font-size: 20px">
 <pre class="sh_javascript">
 var http = require('http');
 var i = 0;
 http.createServer(function (req, res) {
     var id = i++;
+    console.log('request ' + id);
     setTimeout(function() {
+        console.log('response ' + id);
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Hello World: ' + id + ' \n');
     }, 10 * 1000);
-}).listen(8124, "127.0.0.1");
-console.log('Server running at http://127.0.0.1:8124/');
+}).listen(8080, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:8080/');
 </pre>
         </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Cambio de paradigma</h2>
+          </section>
         </div>
 
         <div class="slide">
           <header><h1>Tradicional</h1></header>
         <section class="summary" style="font-size: 20px">
 <pre class="sh_javascript">
-function existe() {
-    return DB.count() == 1;
+function existe(id) {
+    return DB.find(id).count() == 1;
 }
 
-if (existe()) {
+if (existe(5)) {
     console.log('OK');
 } else {
     console.log('Error');
@@ -332,13 +419,13 @@ if (existe()) {
           <header><h1>NodeJS</h1></header>
         <section class="summary" style="font-size: 20px">
 <pre class="sh_javascript">
-function existe(<em>callback</em>) {
-    DB.count(function(total) {
+function existe(id, <em>callback</em>) {
+    DB.find(id).count(function(total) {
         callback(total == 1);
     });
 }
 
-existe(function(result) {
+existe(5, function(result) {
     if (result) {
         console.log('OK');
     } else {
@@ -360,17 +447,9 @@ existe(function(result) {
           <section class="middle intro">
             <h2>Gracias!</h2>
             <h2>Preguntas?</h2>
-            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
+            <h2><a href="mailto:crodas@php.net"><strong>crodas@php.net</strong></a></h2>
           </section>
         </div>
-
-        <div class="slide">
-          <section class="middle intro">
-            <h2>Preguntas?</h2>
-            <h2><a href="mailto:crodas@php.net"><em>crodas@php.net</em></a></h2>
-          </section>
-        </div>
-
 
       </div> <!-- slides -->
 
