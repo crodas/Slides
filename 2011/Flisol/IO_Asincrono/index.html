@@ -397,6 +397,43 @@ console.log('Server running at http://127.0.0.1:8080/');
             <h2>Cambio de paradigma</h2>
           </section>
         </div>
+        <div class="slide">
+          <header></header>
+        <section class="summary" style="font-size: 20px">
+<pre class="sh_javascript">
+// normal
+console.log('hello');
+pause(5);
+console.log('world');
+
+// asíncrono
+console.log('hello');
+setTimeout(function() {
+    console.log('world');
+}, 5*1000);
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <header></header>
+        <section class="summary" style="font-size: 20px">
+<pre class="sh_javascript">
+// normal
+while(true) {
+    console.log('hello');
+    console.log('world');
+    pause(5);
+}
+
+// asíncrono
+setInterval(function() {
+    console.log('hello');
+    console.log('world');
+}, 5*1000);
+</pre>
+        </section>
+        </div>
 
         <div class="slide">
           <header><h1>Tradicional</h1></header>
@@ -416,7 +453,7 @@ if (existe(5)) {
         </div>
 
         <div class="slide">
-          <header><h1>NodeJS</h1></header>
+          <header><h1>Asíncrono</h1></header>
         <section class="summary" style="font-size: 20px">
 <pre class="sh_javascript">
 function existe(id, <em>callback</em>) {
@@ -439,7 +476,6 @@ existe(5, function(result) {
           <header><h1>Conclusion</h1></header>
           <section class="middle intro">
                 <h2>bla, bla</h2>
-
           </section>
         </div>
 
