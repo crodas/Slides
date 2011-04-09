@@ -107,36 +107,13 @@
 
 
         <div class="slide">
-          <header>About me</header>
-          <section>
-            <style>
-              span.year {
-                display: inline-block;
-                text-align: right;
-                width: 120px;
-                letter-spacing: -2px;
-                padding-right: 10px;
-              }
-              hr {
-                visibility: hidden;
-                padding: 0;
-                margin: 0 0 -20px 0;
-              }
-              #timeline {
-                font-size: 50px;
-              }
-              #timeline li {
-                padding: 0;
-              }
-            </style>
-            
-            <ul id="timeline">
-              <li><span class="year">1987</span> <span class="html">Born</span></li>
-              <li><span class="year">2003</span> <span class="css">PHP</span></li>
-              <li><span class="year">2005</span> <span class="css">PHP</span> + <span class="js">Opensource</span></li>
-              <li><span class="year">2009</span> <span class="html">MongoDB</span></li>
-              <li><span class="year">2010</span> <span class="css">PHP</span> + <span class="js">Opensource</span> + <span class="html">MongoDB</span></li>
-            </ul>            
+          <header>Acerca de mí</header>
+          <section class="middle landing">
+            <p>http://cesarrodas.com/</p>
+            <p>http://github.com/crodas</p>
+            <p>crodas@php.net</p>
+            <p>crodas en #freenode</p>
+            <p>http://twitter.com/crodas</a>
           </section>
         </div>
 
@@ -190,7 +167,7 @@ Programa.hacerAlgoUtil();
               <li><strong>Comunicación entre procesos/hilos</strong>
               </li><li><strong>Propenso a errores</strong>
               </li><li><strong>Costosas</strong>
-              </li><li><strong>Excelentes para computación intensiva</strong>
+              </li><li><strong>Excelentes para computación intensiva, pero no es la mejor solución para entrada/salida.</strong>
             </li></ul>
           </section>
         </div>
@@ -298,7 +275,43 @@ do {
 
         <div class="slide">
           <section class="middle intro">
-            <h2>Javascript?</h2>
+            <h2>¿Javascript?</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Está en todas partes</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Muy dinámico</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+        <section class="summary" style="margin-top: 130px;">
+<pre class="sh_javascript">
+var obj = {};
+obj.method = function(x) {
+    var i = 0;
+    return function() {
+        console.log(x[i++]);
+    }
+};
+var d = 'method';
+var x = obj[d](['hello', 'world']);
+x();
+x();
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>Orientada a eventos</h2>
           </section>
         </div>
 
@@ -322,6 +335,18 @@ $.post("/some/url", function(response) {
 }, 'json');
 </pre>
         </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>V8</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle intro">
+            <h2>No tiene API para Entrada/Salida</h2>
+          </section>
         </div>
 
         <div class="slide">
@@ -397,6 +422,7 @@ console.log('Server running at http://127.0.0.1:8080/');
             <h2>Cambio de paradigma</h2>
           </section>
         </div>
+
         <div class="slide">
           <header></header>
         <section class="summary" style="font-size: 20px">
@@ -462,7 +488,7 @@ function existe(id, <em>callback</em>) {
     });
 }
 
-existe(5, function(result) {
+existe(5, function(error, result) {
     if (result) {
         console.log('OK');
     } else {
@@ -473,9 +499,71 @@ existe(5, function(result) {
         </div>
 
         <div class="slide">
-          <header><h1>Conclusion</h1></header>
+          <header><h1>Recomendaciones</h1></header>
+
+          <section>
+            <ul class="summary">
+              <li><strong>Evitar bloqueos
+              </li><li>Diseñar funciones para que reciban un <em>callback</em>
+              </li><li>Respuestas consistentes <em>callback(<strong>error</strong>, ... )</em>
+              </li><li>No lanzar excepciones.
+            </li></ul>
+          </section>
+        </div>
+
+        <div class="slide">
           <section class="middle intro">
-                <h2>bla, bla</h2>
+            <h2>Errores comunes</h2>
+          </section>
+        </div>
+
+        <div class="slide">
+        <section class="summary" style="margin-top:210px;">
+<pre class="sh_javascript">
+setInterval(function() {
+    console.log('algo');
+}, 1000);
+while(true);
+</pre>
+        </section>
+        </div>
+        
+
+        <div class="slide">
+        <section class="summary" style="margin-top:210px; font-size:25px;">
+<pre class="sh_javascript">
+fs.rename('/tmp/hello', '/tmp/world', function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+});
+fs.stat('/tmp/world', function (err, stats) {
+    if (err) throw err;
+    console.log('stats: ' + JSON.stringify(stats));
+});
+</pre>
+        </section>
+        </div>
+
+        <div class="slide">
+        <section class="summary" style="margin-top:210px; font-size:24px;">
+<pre class="sh_javascript">
+fs.rename('/tmp/hello', '/tmp/world', function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+    fs.stat('/tmp/world', function (err, stats) {
+        if (err) throw err;
+        console.log('stats: ' + JSON.stringify(stats));
+    });
+});
+</pre>
+        </section>
+        </div>
+
+
+        <div class="slide">
+          <header><h1>Conclusión</h1></header>
+          <section class="middle intro">
+                <h2>Utilizar el patrón correcto para cada tipo de problema.</h2>
           </section>
         </div>
 
